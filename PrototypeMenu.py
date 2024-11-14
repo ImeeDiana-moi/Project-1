@@ -4,6 +4,8 @@
 from time import sleep
 import sys
 import csv
+import Queue
+import Array
 
 #Pre made menus
 menu1={
@@ -29,19 +31,21 @@ def printmenu(menu):
 
 #Start
 line1 = ["<<<Welcome to Python Music Player>>>"]
-# for line in line1:        
-#     for c in line:          
-#         print(c, end='')    
-#         sys.stdout.flush()  
-#         sleep(0.1)          
-#     print('')
+
+#Printing with Animation
+for line in line1:        
+    for c in line:          
+        print(c, end='')    
+        sys.stdout.flush()  
+        sleep(0.1)          
+    print('')
 
 #CSV reader
-with open('Storage.csv', 'r') as storage:
-    read=csv.reader(storage)
-    next(read) #skipping the track format guide
-    for lines in read:
-        print(lines)
+# with open('Storage.csv', 'r') as storage:
+#     read=csv.reader(storage)
+#     next(read) #skipping the track format guide
+#     for lines in read:
+#         print(lines)
     # with open('newstorage.csv', 'w') as manager:
     #     writer = csv.writer(manager)
 
@@ -56,5 +60,5 @@ datas=[
 #csv manager
 manage=open('Storage.csv', 'a', newline='') #open manager
 write= csv.writer(manage)
-write.writerows(data)
+# write.writerows(data) #Adding of new data
 manage.close()   #close manager
