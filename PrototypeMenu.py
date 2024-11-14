@@ -35,6 +35,8 @@ line1 = ["<<<Welcome to Python Music Player>>>"]
 #         sys.stdout.flush()  
 #         sleep(0.1)          
 #     print('')
+
+#CSV reader
 with open('Storage.csv', 'r') as storage:
     read=csv.reader(storage)
     next(read) #skipping the track format guide
@@ -43,4 +45,16 @@ with open('Storage.csv', 'r') as storage:
     # with open('newstorage.csv', 'w') as manager:
     #     writer = csv.writer(manager)
 
-    
+#Sample to add
+data=[
+    []
+]     #if adding new elements to the storage, must be in a list format
+datas=[
+    [],[],[]
+]
+
+#csv manager
+manage=open('Storage.csv', 'a', newline='') #open manager
+write= csv.writer(manage)
+write.writerows(data)
+manage.close()   #close manager
