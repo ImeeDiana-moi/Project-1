@@ -1,7 +1,12 @@
 class Music:
-    def __init__(self):
-        pass
+    """Receives information of a song"""
+    
+    def __init__(self, title, artist, album, duration):
+        self.title=title
+        self.artist=artist
+        self.album=album
+        self.duration=duration
 
 
     def __str__(self):
-        pass
+        return f"{self.title},{self.artist},{self.album},{self.duration}"
