@@ -12,23 +12,38 @@ class Queue:
     def increaseSize(self):
         self.size +=1
 
+    def getSize(self):
+        return self.size
+
     def enqueue(self,song:Music):
+        # print(self.getSize())
         index=self.size
         self.queue[index]=song
         self.increaseSize()
+        # print(self.getSize())
         
     def dequeue(self):
         pass
 
-    def getContent(self):
-        """Should return items in the queue"""
-        for items in self.queue:
-            if items == None:
-                break
-            return items
+    # def getContent(self):
+        
+        
+    #     # for items in self.queue:
+    #     #     s+=items
+            
+    #     # return s
 
     def __str__(self):
-        return "Yes"
+        """Should return items in the queue"""
+        str="Songs in Queue"
+        index=0
+        while index < len(self.queue):
+            if self.queue[index]==None:
+                break
+            str+=f"\n{self.queue[index]}"
+            index+=1
+        
+        return str
         
 
 q1=Queue()
@@ -40,5 +55,6 @@ q1.enqueue(m1)
 q1.enqueue(m2)
 q1.enqueue(m3)
 q1.enqueue(m4)
-
-print(q1.getContent())
+print(q1)
+# q1.getContent()
+# print(q1.getContent())
