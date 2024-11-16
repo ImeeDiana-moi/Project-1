@@ -86,10 +86,3 @@ q1.enqueue(m4)
 # print(q1.getContent())
 # print(q1.convert())
 
-with open('Storage.csv', 'r') as storage:
-    read=csv.reader(storage)
-    # next(read) #skipping the track format guide
-    for lines in read:
-        if lines == "Nigga":
-            print(lines)
-        next(read)

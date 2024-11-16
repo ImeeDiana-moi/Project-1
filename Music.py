@@ -37,19 +37,12 @@ class Music:
                     return(f"Title: {lines[0]}\nArtist: {lines[1]}\nAlbum: {lines[2]}\nDuration: {lines[3]}")
                 else:
                     return "Song does not Exist"
-    def convertduration(self):
-        s=self.getDuration()
-        index=0
-        time=0
-        while index < len(s):
-            print(s[index],end='')
-            index+=1
-
-
+    
     def __str__(self):
-        return f"{self.title},{self.artist},{self.album},{self.duration}"
+        return f"Title: {self.getTitle()}\nArtist: {self.getArtist()}\nAlbum: {self.getAlbum()}\nDuration: {self.getDuration()}"
     
 m1=Music("Rap God", "Eminem", "2:00","Nigga")
 # print(m1.getDuration())
 # m1.convertduration()
-print(m1.getSongDetails("Break"))
+# print(m1.getSongDetails("Break"))
+print(m1)
