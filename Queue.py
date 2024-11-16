@@ -55,27 +55,30 @@ class Queue:
                 break
             s += [[items]]
         return s
-        
+    
+    def showQueue(self):
+        pass
     
 
     def __str__(self):
         """Should return items in the queue"""
-        str="Songs in Queue"
+        str="<------Songs in Queue----->"
         index=0
         while index < len(self.queue):
             if self.queue[index]==None:
                 break
-            str+=f"\n{self.queue[index]}"
+            str+=f"\n{self.queue[index]}\n"
             index+=1
+        str+="\n<---------End of Queue--------->"
         
         return str
         
 
 q1=Queue()
-m1=Music("Gangnam Style", "PSY", "None", "4:00")
-m2=Music("Gale", "PSY", "None", "4:00")
-m3=Music("Nigga Style", "PSY", "None", "4:00")
-m4=Music("Haya Style", "PSY", "None", "4:00")
+m1=Music("Gangnam Style", "PSY", "4:00", "None")
+m2=Music("Gale", "PSY", "4:00", "None")
+m3=Music("Nigga Style", "PSY", "4:00", "None")
+m4=Music("Haya Style", "PSY", "4:00", "None")
 q1.enqueue(m1)
 q1.enqueue(m2)
 q1.enqueue(m3)

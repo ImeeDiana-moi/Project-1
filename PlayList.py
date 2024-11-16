@@ -1,5 +1,5 @@
 
-class ArrayList:
+class PlayList:
     
     def __init__(self, size: int = 100):
         

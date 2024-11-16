@@ -41,8 +41,8 @@ class Music:
     def __str__(self):
         return f"Title: {self.getTitle()}\nArtist: {self.getArtist()}\nAlbum: {self.getAlbum()}\nDuration: {self.getDuration()}"
     
-m1=Music("Rap God", "Eminem", "2:00","Nigga")
+# m0=Music("Rap God", "Eminem", "2:00","Nigga")
 # print(m1.getDuration())
 # m1.convertduration()
 # print(m1.getSongDetails("Break"))
-print(m1)
+# print(m0)
