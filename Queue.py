@@ -63,7 +63,13 @@ class Queue:
         return s
     
     def showQueue(self):
-        pass
+        if self.size==0:
+            print("The queue is empty.")
+        else:
+            print("<------Songs in Queue------>")
+            for i in range(self.size):
+                print(f"\n{self.queue[i]}\n")
+            print("<---------End of Queue--------->")
     
 
     def __str__(self):
