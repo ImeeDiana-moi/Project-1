@@ -68,3 +68,10 @@ class Music:
 # m1.convertduration()
 # print(m1.getSongDetails("Break"))
 # print(m0)
+
+# song1 = Music("Libre Sampak", "No Pets Allowed", 225, "Ha")
+
+# print(f"Title: {song1.getTitle()}")
+# print(f"Artist: {song1.getArtist()}")
+# print(f"Album: {song1.getAlbum()}")
+# print(f"Duration: {song1.getDuration()}")
