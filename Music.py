@@ -1,5 +1,5 @@
 class Music:
-    """Receives information of a song"""
+    """Receives information of a song, manage information"""
     
     def __init__(self, title, artist, album, duration):
         self.title=title
