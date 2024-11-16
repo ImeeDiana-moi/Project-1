@@ -34,7 +34,13 @@ class Queue:
 
         
     def dequeue(self):
-        pass
+        if self.size==0:
+            return None
+        else:
+            item=self.queue[0]
+            self.queue=self.queue[1:]
+            self.size-=1
+            return item
 
     def getContent(self):
         # pass
