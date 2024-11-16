@@ -10,14 +10,36 @@ class Music:
 
     def getTitle(self):
         return self.title
+    
     def getArtist(self):
         return self.artist
+    
     def getAlbum(self):
         if self.album == None:
             return "Unknown"
         return self.album
-    def getDuration(self):
-        return self.duration
+    
+
+    def getDuration(self, Filepath = None):
+        if Filepath:
+            total = 0 
+            with open (Filepath, "r") as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    duration = row[-1].strip()
+                    minutes, seconds = map(int, duration.split(":"))
+                    total_seconds += minutes * 60 + seconds
+
+            minutes = total_seconds // 60
+            seconds = total_seconds % 60
+            return f"Total Song Duration: {minutes} : {seconds : 02}"
+        
+        else:
+            minutes = self.duration // 60
+            seconds = self.duration % 60
+            return f"{minutes} : {seconds :02}"
+
+
     def getTitle(self):
         return self.title
     
@@ -41,7 +63,7 @@ class Music:
     def __str__(self):
         return f"Title: {self.getTitle()}\nArtist: {self.getArtist()}\nAlbum: {self.getAlbum()}\nDuration: {self.getDuration()}"
     
-# m0=Music("Rap God", "Eminem", "2:00","Nigga")
+# m0=Music("Rap God", "Eminem", "2:00","Niga")
 # print(m1.getDuration())
 # m1.convertduration()
 # print(m1.getSongDetails("Break"))
