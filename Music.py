@@ -1,3 +1,4 @@
+import csv
 class Music:
     """Receives information of a song, manage information"""
     
@@ -20,6 +21,22 @@ class Music:
     def getTitle(self):
         return self.title
     
+    def getSongDetails(self, title):
+        """Returns the details of the song in the format
+        Title:
+        Artis:
+        Album:
+        Duration:
+        Arguments: Title of the song"""
+        artist=title
+        with open('Storage.csv', 'r') as storage:
+            read=csv.reader(storage)
+            for lines in read:
+                # print(lines[1])
+                if artist in lines[0]:
+                    return(f"Title: {lines[0]}\nArtist: {lines[1]}\nAlbum: {lines[2]}\nDuration: {lines[3]}")
+                else:
+                    return "Song does not Exist"
     def convertduration(self):
         s=self.getDuration()
         index=0
@@ -33,5 +50,6 @@ class Music:
         return f"{self.title},{self.artist},{self.album},{self.duration}"
     
 m1=Music("Rap God", "Eminem", "2:00","Nigga")
-print(m1.getDuration())
-m1.convertduration()
+# print(m1.getDuration())
+# m1.convertduration()
+print(m1.getSongDetails("Break"))
