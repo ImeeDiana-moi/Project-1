@@ -19,8 +19,15 @@ class Music:
             return "Unknown"
         return self.album
     
-
-    def getDuration(self, Filepath = None):
+    def getTitle(self):
+        return self.title
+    
+    def getDuration(self):
+        return self.duration
+    
+    #koody finish this
+    def convertDuration(self, Filepath = None):
+        """Converts str duration of songs into solvable format"""
         if Filepath:
             total = 0 
             with open (Filepath, "r") as file:
@@ -28,10 +35,10 @@ class Music:
                 for row in reader:
                     duration = row[-1].strip()
                     minutes, seconds = map(int, duration.split(":"))
-                    total_seconds += minutes * 60 + seconds
+                    total += minutes * 60 + seconds
 
-            minutes = total_seconds // 60
-            seconds = total_seconds % 60
+            minutes = total // 60
+            seconds = total % 60
             return f"Total Song Duration: {minutes} : {seconds : 02}"
         
         else:
@@ -39,10 +46,6 @@ class Music:
             seconds = self.duration % 60
             return f"{minutes} : {seconds :02}"
 
-
-    def getTitle(self):
-        return self.title
-    
     def getSongDetails(self, title):
         """Returns the details of the song in the format
         Title:
@@ -63,7 +66,10 @@ class Music:
     def __str__(self):
         return f"Title: {self.getTitle()}\nArtist: {self.getArtist()}\nAlbum: {self.getAlbum()}\nDuration: {self.getDuration()}"
     
+
+#Tests
 # m0=Music("Rap God", "Eminem", "2:00","Niga")
+# print(m0.getDuration())
 # print(m1.getDuration())
 # m1.convertduration()
 # print(m1.getSongDetails("Break"))

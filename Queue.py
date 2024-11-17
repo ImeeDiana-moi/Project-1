@@ -18,20 +18,6 @@ class Queue:
         index=self.size
         self.queue[index]=song
         self.increaseSize()
-    
-
-#           title,artistname, album, duration
-
-    def addtoStorage(self, name):
-        """Adds the queue into the csv file
-        Arguments: Name(Set a custom name for the queue)"""
-        name=[[name]]
-        manage=open('Storage.csv', 'a',newline='') #open manager
-        write= csv.writer(manage)
-        write.writerows(name)
-        write.writerows(self.convert()) #Adding of new data
-        manage.close()   #close manager
-
         
     def dequeue(self):
         if self.size==0:
@@ -42,8 +28,21 @@ class Queue:
             self.size-=1
             return item
 
+#           title,artistname, album, duration
+    #still under development
+    def addtoStorage(self, name):
+        """Adds the queue into the csv file
+        Arguments: Name(Set a custom name for the queue)"""
+        name=[[name]]
+        manage=open('Storage.csv', 'a',newline='') #open manager
+        write= csv.writer(manage)
+        write.writerows(name)
+        write.writerows(self.convert()) #Adding of new data
+        manage.close()   #close manager
+
+    
+
     def getContent(self):
-        # pass
         str=f""
         index=0
         while index < len(self.queue):
@@ -61,6 +60,11 @@ class Queue:
                 break
             s += [[items]]
         return s
+    
+    def getTotalDuration(self):
+        """Returns total duration of the Queue"""
+        """Complete this method"""
+        pass
     
     def showQueue(self):
         if self.size==0:
@@ -85,7 +89,7 @@ class Queue:
         
         return str
         
-
+#Tests
 q1=Queue()
 m1=Music("Gangnam Style", "PSY", "4:00", "None")
 m2=Music("Gale", "PSY", "4:00", "None")
