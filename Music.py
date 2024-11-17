@@ -62,6 +62,11 @@ class Music:
                     return(f"Title: {lines[0]}\nArtist: {lines[1]}\nAlbum: {lines[2]}\nDuration: {lines[3]}")
                 else:
                     return "Song does not Exist"
+                
+    def storeTrack(self, file_path):
+        with open(file_path, mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([self.title, self.artist, self.album or "Unknown", self.duration])
     
     def __str__(self):
         return f"Title: {self.getTitle()}\nArtist: {self.getArtist()}\nAlbum: {self.getAlbum()}\nDuration: {self.getDuration()}"
