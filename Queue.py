@@ -34,7 +34,7 @@ class Queue:
         """Adds the queue into the csv file
         Arguments: Name(Set a custom name for the queue)"""
         name=[[name]]
-        manage=open('Storage.csv', 'a',newline='') #open manager
+        manage=open('Library.csv', 'a',newline='') #open manager
         write= csv.writer(manage)
         write.writerows(name)
         write.writerows(self.convert()) #Adding of new data
@@ -60,7 +60,11 @@ class Queue:
                 break
             s += [[items]]
         return s
-    
+    def convertTime(self):
+        time=self.duration
+        minutes, seconds = map(int, time.split(":"))
+        total_seconds = minutes * 60 + seconds
+        return total_seconds
     def getTotalDuration(self):
         """Returns total duration of the Queue"""
         """Complete this method"""
@@ -89,19 +93,5 @@ class Queue:
         
         return str
         
-#Tests
-q1=Queue()
-m1=Music("Gangnam Style", "PSY", "4:00", "None")
-m2=Music("Gale", "PSY", "4:00", "None")
-m3=Music("Nigga Style", "PSY", "4:00", "None")
-m4=Music("Haya Style", "PSY", "4:00", "None")
-q1.enqueue(m1)
-q1.enqueue(m2)
-q1.enqueue(m3)
-q1.enqueue(m4)
-# print(q1)
-# q1.addtoStorage("PlayList")
-# print(q1.getContent())
-# print(q1.getContent())
-# print(q1.convert())
+
 

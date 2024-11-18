@@ -10,12 +10,13 @@ from Music import Music
 
 #Pre made menus
 main={
-    1:"PlayLists",
-    2:"View all songs",
+    1:"Music Library",
+    2:"Add Tracks",
+    3:"Add PLayList",
     0:"Quit"
 }
 menu1={
-    1:"My Playlist",
+    1:"My Playlists",
     2: "Ariana Grande",
     3: "Lady Gaga",
     4: "Taylor Swift",
@@ -43,13 +44,13 @@ if __name__ == "__main__":
     player= PlayList()
     while True:
     #Intro with transition
-        # for line in line1:        
-        #     for c in line:          
-        #         print(c, end='')    
-        #         sys.stdout.flush()  
-        #         sleep(0.1)          
-        # print('')
-        print(line1)
+        for line in line1:        
+            for c in line:          
+                print(c, end='')    
+                sys.stdout.flush()  
+                sleep(0.1)          
+        print('')
+        # print(line1)
         printmenu(main)
         first=int(input("Enter Choice: "))
         if first == 1:

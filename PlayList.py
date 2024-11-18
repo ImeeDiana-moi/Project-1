@@ -22,7 +22,7 @@ class PlayList:
     def getByArtist(self, artist):
         """Returns a list of songs based on Artist name, else return none"""
         s=[]
-        with open('Storage.csv', 'r') as storage:
+        with open('Library.csv', 'r') as storage:
             read=csv.reader(storage)
             # next(read) #skipping the track format guide
             for lines in read:
@@ -35,7 +35,7 @@ class PlayList:
         """Returns a list of songs based on Artist name, else return none"""
         album=str(album)
         s=[]
-        with open('Storage.csv', 'r') as storage:
+        with open('Library.csv', 'r') as storage:
             read=csv.reader(storage)
             # next(read) #skipping the track format guide
             for lines in read:
@@ -69,7 +69,12 @@ class PlayList:
     def showPlaylist(self):
         """Shows the Playist(Default: Alphabetical)"""
         pass
-    
+    def convertTime(self):
+        
+        time=self.duration
+        minutes, seconds = map(int, time.split(":"))
+        total_seconds = minutes * 60 + seconds
+        return total_seconds
     def getTotalDuration(self,list):
         """Returns total duration of the playlist"""
         """Complete this method"""
@@ -79,11 +84,3 @@ class PlayList:
     def __str__(self):
         return self.storage0
 
-#Tests
-p1=PlayList()
-# p1.getByArtist("Ariana Grande")
-# print(p1.getByArtist("Ariana Grande"))
-# print(p1.getByAlbum("The Fame Monster"))
-# liste=p1.getByArtist("Ariana Grande")
-# p1.createPlaylist(liste)
-# print(p1.createPlaylist(liste))
