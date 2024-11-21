@@ -2,26 +2,29 @@ import csv
 from Track import Track
 
 class Queue:
-    """Creates a Queue"""
-    
     def __init__(self,size:int=50):
+        """Create a Queue"""
         self.queue=[None]*size
         self.size=0
         self.curr = 0
         self.repeat = False
 
     def increaseSize(self):
+        """Increase Queue Size"""
         self.size +=1
 
     def getSize(self):
+        """Return Queue Size"""
         return self.size
 
     def enqueue(self,song:Track):
+        """Add song to Queue"""
         index=self.size
         self.queue[index]=song
         self.increaseSize()
         
     def dequeue(self):
+        """Remove Song from Queue"""
         if self.size==0:
             return None
         else:
@@ -29,9 +32,6 @@ class Queue:
             self.queue=self.queue[1:]
             self.size-=1
             return item
-
-#           title,artistname, album, duration
-    #still under development
     def addtoStorage(self, name):
         """Adds the queue into the csv file
         Arguments: Name(Set a custom name for the queue)"""
@@ -69,7 +69,6 @@ class Queue:
     
     def getTotalDuration(self):
         """Returns total duration of the Queue"""
-        """Complete this method"""
         total_seconds = 0
 
         for items in self.queue:
@@ -81,15 +80,6 @@ class Queue:
         total_minutes = total_seconds // 60
         remaining_seconds = total_seconds % 60
         return f"{total_minutes}:{remaining_seconds:02d}"
-    
-    def showQueue(self):
-        if self.size==0:
-            print("The queue is empty.")
-        else:
-            print("<------Songs in Queue------>")
-            for i in range(self.size):
-                print(f"\n{self.queue[i]}\n")
-            print("<---------End of Queue--------->")
     
     def toggleRepeat(self):
         self.repeat = True
@@ -122,7 +112,16 @@ class Queue:
             else:
                 print("At the beginning of the queue.")
                 self.curr = -1  
-        
+    
+    def showQueue(self):
+        if self.size==0:
+            print("The queue is empty.")
+        else:
+            print("<------Songs in Queue------>")
+            for i in range(self.size):
+                print(f"\n{self.queue[i]}\n")
+            print("<---------End of Queue--------->")
+            
     def __str__(self):
         """Should return items in the queue"""
         str="<------Songs in Queue----->"
@@ -132,34 +131,38 @@ class Queue:
                 break
             str+=f"\n{self.queue[index]}\n"
             index+=1
-        str+="\n<---------End of Queue--------->"
-        
+        str+=f"\nTotal Duration: {self.getTotalDuration()}\n<---------End of Queue--------->"
         return str
     
+
+
 queue = Queue()
 
-song1 = Music("Nikes", "Frank Ocean", "Blonde", "5:14")
-song2 = Music("Heartless", "The Weeknd", "After Hours", "3:18")
-song3 = Music("Thinkin Bout You", "Frank Ocean", "Channel Orange", "3:21")
+
+song1 = Track("Nikes", "Frank Ocean", "Blonde", "5:14")
+song2 = Track("Heartless", "The Weeknd", "After Hours", "3:18")
+song3 = Track("Thinkin Bout You", "Frank Ocean", "Channel Orange", "3:21")
 queue.enqueue(song1)
 queue.enqueue(song2)
 queue.enqueue(song3)
+print(queue)
+# print(queue.getTotalDuration())
 
-queue.toggleRepeat()
+# queue.toggleRepeat()
 
-queue.playTrack() #Play 1st song
+# queue.playTrack() #Play 1st song
 
-queue.skipTrack() #Skip to 2nd song
-queue.playTrack() #PLay 2nd song
+# queue.skipTrack() #Skip to 2nd song
+# queue.playTrack() #PLay 2nd song
 
-queue.skipTrack() #Skip to 3rd song
-queue.playTrack() #Play 3rd song
+# queue.skipTrack() #Skip to 3rd song
+# queue.playTrack() #Play 3rd song
 
-queue.prevTrack() #Go back to 2nd song
-queue.playTrack() #Play 2nd song
+# queue.prevTrack() #Go back to 2nd song
+# queue.playTrack() #Play 2nd song
 
-queue.prevTrack() #Go back to 1st song
-queue.playTrack() #Play 1st song
+# queue.prevTrack() #Go back to 1st song
+# queue.playTrack() #Play 1st song
 
-queue.prevTrack() #Go back to the last song in the queue
-queue.playTrack() #Play last song
+# queue.prevTrack() #Go back to the last song in the queue
+# queue.playTrack() #Play last song
