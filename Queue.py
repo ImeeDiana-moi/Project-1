@@ -1,5 +1,5 @@
 import csv
-from Music import Music
+from Track import Track
 
 class Queue:
     """Creates a Queue"""
@@ -16,7 +16,7 @@ class Queue:
     def getSize(self):
         return self.size
 
-    def enqueue(self,song:Music):
+    def enqueue(self,song:Track):
         index=self.size
         self.queue[index]=song
         self.increaseSize()

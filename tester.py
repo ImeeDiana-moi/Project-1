@@ -1,7 +1,7 @@
 import csv
 from Queue import Queue
 from PlayList import PlayList
-from Music import Music
+from Track import Track
 
 # with open('Storage.csv', 'r') as storage:
 #     read=csv.reader(storage)

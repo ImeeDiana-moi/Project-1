@@ -6,7 +6,7 @@ import sys
 import csv
 from Queue import Queue
 from PlayList import PlayList
-from Music import Music
+from Track import Track
 
 #Pre made menus
 main={
@@ -65,44 +65,29 @@ if __name__ == "__main__":
         # print(line1)
 
         printmenu(main)
-        try:
-            first = int(input("Enter Choice: "))
-        except ValueError:
-            print("Invalid Input. Please Enter a number.")
-            continue
 
-        if first == 1: #Music Library
-            while True:
-                printmenu(menu1)
-                try:
-                    one=int(input("Enter Choice: "))
-                except ValueError:
-                    print("Invalid Input. Please Enter a Number.")
-                    continue
-                if one in menu1:
-                    print(f"You selected {menu1[one]}.")
-                    break
-                elif one == 0:
-                    break
-                else:
-                    print("Invalid option.")
-
-        elif first == 2: #View Queue
+        first=int(input("Enter Choice: "))
+        if first == 1:
             while True:
                 printmenu(menu1)
                 one=int(input("Enter Choice: "))
 
-        elif first == 3: #Add Tracks
+        elif first == 2:
             while True:
                 printmenu(menu1)
                 one=int(input("Enter Choice: "))
 
-        elif first == 4: #Add Playlist
+        elif first == 3:
             while True:
                 printmenu(menu1)
                 one=int(input("Enter Choice: "))
 
-        elif first==0: #Quit
+        elif first == 4:
+            while True:
+                printmenu(menu1)
+                one=int(input("Enter Choice: "))
+
+        elif first==0:
             break
 
         else:
