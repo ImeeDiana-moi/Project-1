@@ -85,33 +85,38 @@ class Queue:
         self.repeat = True
 
     def skipTrack(self):
-        if self.curr < self.size - 1:
+        if self.curr != -1 and self.curr < self.size - 1:
             self.curr += 1
+            self.playTrack()
         else:
             if self.repeat:
                 self.curr = 0
+                self.playTrack()
             else:
                 print("No more tracks left.")
                 self.curr = -1
     
     def playTrack(self):
         if self.curr == -1:
-            self.curr= 0
+            self.curr = 0
         if self.curr < self.size and self.queue[self.curr] is not None:
             print(f"Now playing: {self.queue[self.curr]}")
         else:
             print(f"No more tracks left.")
 
+
     def prevTrack(self):
 
         if self.curr > 0:
             self.curr -= 1
+            self.playTrack()
         else:
             if self.repeat:
-                self.curr= self.size - 1
+                self.curr = self.size - 1
+                self.playTrack()
             else:
-                print("At the beginning of the queue.")
-                self.curr = -1  
+                self.playTrack()
+                self.curr = -1
     
     def showQueue(self):
         if self.size==0:
@@ -145,20 +150,24 @@ song3 = Track("Thinkin Bout You", "Frank Ocean", "Channel Orange", "3:21")
 queue.enqueue(song1)
 queue.enqueue(song2)
 queue.enqueue(song3)
-print(queue)
+# print(queue)
 # print(queue.getTotalDuration())
 
 # queue.toggleRepeat()
 
-# queue.playTrack() #Play 1st song
+queue.playTrack() #Play 1st song
 
-# queue.skipTrack() #Skip to 2nd song
+queue.skipTrack() #Skip to 2nd song
 # queue.playTrack() #PLay 2nd song
 
-# queue.skipTrack() #Skip to 3rd song
+queue.skipTrack() #Skip to 3rd song
+queue.prevTrack()
+queue.prevTrack()
+# queue.skipTrack()
+# queue.skipTrack()
 # queue.playTrack() #Play 3rd song
 
-# queue.prevTrack() #Go back to 2nd song
+queue.prevTrack() #Go back to 2nd song
 # queue.playTrack() #Play 2nd song
 
 # queue.prevTrack() #Go back to 1st song
