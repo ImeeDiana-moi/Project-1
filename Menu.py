@@ -65,29 +65,44 @@ if __name__ == "__main__":
         # print(line1)
 
         printmenu(main)
+        try:
+            first=int(input("Enter Choice: "))
+        except ValueError:
+            print("Invalid Input. Please Enter a number.")
+            continue
 
-        first=int(input("Enter Choice: "))
-        if first == 1:
+        if first == 1: # Music Library
+            while True:
+                printmenu(menu1)
+                try:
+                    one=int(input("Enter Choice: "))
+                except ValueError:
+                    print("Invalid Input. Please Enter a Number.")
+                    continue
+                if one in menu1:
+                    print(f"You selected {menu1[one]}.")
+                    break
+                elif one == 0:
+                    break
+                else:
+                    print("Invalid option.")
+
+        elif first == 2: # View Queue
             while True:
                 printmenu(menu1)
                 one=int(input("Enter Choice: "))
 
-        elif first == 2:
+        elif first == 3: # Add Tracks
             while True:
                 printmenu(menu1)
                 one=int(input("Enter Choice: "))
 
-        elif first == 3:
+        elif first == 4: # Add Playlist
             while True:
                 printmenu(menu1)
                 one=int(input("Enter Choice: "))
 
-        elif first == 4:
-            while True:
-                printmenu(menu1)
-                one=int(input("Enter Choice: "))
-
-        elif first==0:
+        elif first==0: # Quit
             break
 
         else:
