@@ -69,12 +69,14 @@ class PlayList:
     def showPlaylist(self):
         """Shows the Playist(Default: Alphabetical)"""
         pass
+    
     def convertTime(self):
         
         time=self.duration
         minutes, seconds = map(int, time.split(":"))
         total_seconds = minutes * 60 + seconds
         return total_seconds
+
     def getTotalDuration(self,list):
         """Returns total duration of the playlist"""
         """Complete this method"""
