@@ -14,8 +14,11 @@ class PlayList:
     def getSize(self):
         return self.size
 
-    def addtoPlaylist(self,song:Track):
-        self.storage0=song
+    # def addtoPlaylist(self,song:Track):
+    #     self.storage0=song
+    def addtoPlaylist(self,list):
+        for items in list:
+            self.storage0+=[items]
 
     def getByArtist(self, artist):
         """Returns a list of songs based on Artist name, else return none"""
@@ -47,6 +50,33 @@ class PlayList:
         Returns alphabeticalized List of Songs but still follows the format"""\
         
         pass
+
+    def convert(self):
+        """Convert content into list for storing data into csv file"""
+        s=[]
+        for items in self.storage0:
+            if items == None:
+                break
+            s +=items
+        return s
+
+    def addtoStorage(self, name):
+        """Adds the queue into the csv file
+        Arguments: Name(Set a custom name for the queue)"""
+        data=[[name,self.convert()]]
+        manage=open('Storage.csv', 'a',newline='')
+        write= csv.writer(manage)
+        write.writerows(data)
+        manage.close()
+
+    def findcustomplaylist(self, name):
+        with open("Storage.csv", mode='r',newline='') as reader:
+            read=csv.reader(reader)
+            for i in read:
+                if name in i[0]:
+                    for items in i[1]:
+                        print(items)
+                print("Wakay Pulos")
     
     def shuffle(self):
         """Receives a list from getBy() methods and return the list in shuffled order"""
@@ -77,7 +107,7 @@ class PlayList:
         
         totalMinutes = TotalDuration // 60
         Seconds = TotalDuration % 60
-        result =  f"Total Time: {totalMinutes}:{Seconds:02d}\n Total Seconds: {TotalDuration}"
+        result =  f"\tTotal Time: {totalMinutes}:{Seconds:02d}\n\tTotal Seconds: {TotalDuration}"
         return result
 
 
@@ -85,16 +115,17 @@ class PlayList:
         plist="<-----PlayList----->\n"
         for i in self.storage0:
             plist+=f"\n{i}\n"
-        plist+=f"\nTotal Duration: {self.getTotalDuration(self.storage0)}\n<-----End----->"
+        plist+=f"\nTotal Duration: \n{self.getTotalDuration(self.storage0)}\n<-----End----->"
         return plist
 
             
         
 
-# pl=PlayList()
+pl=PlayList()
 
-# # pl.addtoPlaylist(pl.getByArtist("Ariana Grande"))
-# # print(pl)
+pl.addtoPlaylist(pl.getByArtist("Ariana Grande"))
+# pl.addtoStorage("Custom")
+# pl.findcustomplaylist("Custom")
 # print(pl.addtoPlaylist(pl.getByAlbum("1989")))
-# print(pl)
+print(pl)
 # print(pl.getTotalDuration(pl.getByArtist("Ariana Grande")))
