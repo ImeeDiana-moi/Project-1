@@ -32,14 +32,14 @@ class Queue:
             self.queue=self.queue[1:]
             self.size-=1
             return item
-    def addtoStorage(self, name):
-        """Adds the queue into the csv file
-        Arguments: Name(Set a custom name for the queue)"""
-        name=[[name]]
-        manage=open('Library.csv', 'a',newline='') #open manager
-        write= csv.writer(manage)
-        write.writerows(name,self.convert()) #Adding of new data
-        manage.close()   #close manager
+        
+    # def addtoStorage(self, name):
+    #     """Adds the queue into the csv file
+    #     Arguments: Name(Set a custom name for the queue)"""
+    #     name=[[name]]
+    #     manage=open('Library.csv', 'a',newline='')
+    #     write= csv.writer(manage)
+    #     write.writerows(name,self.convert())
 
     def getContent(self):
         str=f""
