@@ -19,15 +19,14 @@ class PlayList:
 
     def getByArtist(self, artist):
         """Returns a list of songs based on Artist name, else return none"""
-        s=[]
+        
         with open('Library.csv', 'r') as storage:
             read=csv.reader(storage)
+            s=[]
             for lines in read:
                 if artist in lines[1]:
                     t=Track(lines[0],lines[1],lines[2],lines[3])
-                    s.append(t)
-                else:
-                    print("")
+                    s+=[t]
         return s
     
     def getByAlbum(self, album):
@@ -36,11 +35,10 @@ class PlayList:
         s=[]
         with open('Library.csv', 'r') as storage:
             read=csv.reader(storage)
-            # next(read) #skipping the track format guide
             for lines in read:
                 if album in lines[2]:
-                    s+= [lines]
-            
+                    t=Track(lines[0],lines[1],lines[2],lines[3])
+                    s+=[t]
         return s
     
     def arrangeAlphabetically(self,list):
@@ -82,16 +80,17 @@ class PlayList:
     def __str__(self):
         plist="<-----PlayList----->\n"
         for i in self.storage0:
-            plist+=f"{i}\n"
+            plist+=f"\n{i}\n"
         plist+=f"\nTotal Duration: {self.getTotalDuration(self.storage0)}\n<-----End----->"
         return plist
 
             
         
 
-pl=PlayList()
+# pl=PlayList()
 
-pl.addtoPlaylist(pl.getByArtist("Ariana Grande"))
-print(pl)
-# print(pl.getByArtist("Ariana Grande"))
+# # pl.addtoPlaylist(pl.getByArtist("Ariana Grande"))
+# # print(pl)
+# print(pl.addtoPlaylist(pl.getByAlbum("1989")))
+# print(pl)
 # print(pl.getTotalDuration(pl.getByArtist("Ariana Grande")))

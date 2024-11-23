@@ -28,7 +28,7 @@ class Track:
         self.album=newalbum
     def setduration(self, newduration):
         self.duration=newduration
-    
-        
+
     def __str__(self):
         return f"Title: {self.title}\nArtist: {self.artist}\nAlbum: {self.album}\nDuration: {self.duration}"
+    

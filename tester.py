@@ -54,13 +54,13 @@ def time_to_seconds(time_str):
     return total_seconds
 
 # Example usage
-time_string = "2:39"
-result = time_to_seconds(time_string)
-print(f"{time_string} is equal to {result} seconds.")
+# time_string = "2:39"
+# result = time_to_seconds(time_string)
+# print(f"{time_string} is equal to {result} seconds.")
 
-#Music.py Tests 
-m0=Music("Rap God", "Eminem"," 2:00","Niga")
-print(m0.convertTime())
+# #Music.py Tests 
+# m0=Music("Rap God", "Eminem"," 2:00","Niga")
+# print(m0.convertTime())
 # print(m0.getDuration())
 # print(m1.getDuration())
 # m1.convertduration()
@@ -88,17 +88,55 @@ p1=PlayList()
 
 
 #Queue.py Tests
-q1=Queue()
-m1=Music("Gangnam Style", "PSY", "4:00", "None")
-m2=Music("Gale", "PSY", "4:00", "None")
-m3=Music("Nigga Style", "PSY", "4:00", "None")
-m4=Music("Haya Style", "PSY", "4:00", "None")
-q1.enqueue(m1)
-q1.enqueue(m2)
-q1.enqueue(m3)
-q1.enqueue(m4)
+# q1=Queue()
+# m1=Music("Gangnam Style", "PSY", "4:00", "None")
+# m2=Music("Gale", "PSY", "4:00", "None")
+# m3=Music("Nigga Style", "PSY", "4:00", "None")
+# m4=Music("Haya Style", "PSY", "4:00", "None")
+# q1.enqueue(m1)
+# q1.enqueue(m2)
+# q1.enqueue(m3)
+# q1.enqueue(m4)
 # print(q1)
 # q1.addtoStorage("PlayList")
 # print(q1.getContent())
 # print(q1.getContent())
 # print(q1.convert())
+
+# manage=open('Storage.csv', 'a', newline='') #open manager
+# read=csv.reader(manage)
+# write= csv.writer(manage)
+# for i in read:
+#     print(i)
+# # write.writerows(data) 
+# manage.close()
+
+
+def addtoLibrary():
+    
+    title=input("Enter Title: ")
+    artist=input("Enter Artist: ")
+    album=input("Enter Album: ")
+    duration=input("Enter Duration: ")
+    data=[[title,artist,album,duration]]
+    with open("Storage.csv", mode="r",newline='') as reader:
+        read=csv.reader(reader)
+        for i in read:
+            if data[0][0] in i[0]:
+                print('Naa na')
+                break
+            else:
+                manage=open('Storage.csv', 'a',newline='')
+                write=csv.writer(manage)
+                write.writerows(data) 
+                manage.close()
+                break
+    
+    
+data=[["title","artist","album","duration"]]
+# with open("Storage.csv", mode="r",newline='') as reader:
+#     read=csv.reader(reader)
+    
+
+# addtoLibrary()
+        

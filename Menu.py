@@ -29,6 +29,7 @@ menu1={
     10: "Frank Ocean",
     11:"Next Page",
     12:"Previous Page",
+    0:"Return"
 }
 commands={
     1:"Play",
@@ -39,6 +40,11 @@ commands={
     6:"Clear Queue",
     7:"Exit"
 }
+add={
+    1:"Add to Library",
+    2:"Add to Playlist",
+    0:"Return"
+}
 
 #Methods
 def printmenu(menu):
@@ -46,6 +52,23 @@ def printmenu(menu):
         if items == 11:
             print("< page 1 0f 1 >")
         print(f"[{items}] {menu[items]}")
+
+def addtoLibrary():
+    data=[
+        [input("Enter Title: "),
+        input("Enter Artist: "),
+        input("Enter Album: "),
+        input("Enter Duration: ")],
+    ]
+    with open('Storage.csv', 'r') as storage:
+        read=csv.reader(storage)
+        for lines in read:
+            if data[0] not in lines[0]:
+                print("Break")
+        manage=open('Storage.csv', 'a', newline='')
+        write= csv.writer(manage)
+        write.writerows(data) 
+        manage.close()
 
 line1 = "<---Welcome to Python Music Player--->"
 
@@ -85,8 +108,17 @@ if __name__ == "__main__":
 
         elif first == 3: # Add Tracks
             while True:
-                printmenu(menu1)
-                one=int(input("Enter Choice: "))
+                printmenu(add)
+                three=int(input("Enter Choice: "))
+                if three==1:
+                    addtoLibrary()
+                    
+                elif three == 2:
+                    pass
+                elif three==0:
+                    break
+                else:
+                    continue
 
         elif first == 4: # Add Playlist
             while True:
