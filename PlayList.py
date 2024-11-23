@@ -41,15 +41,16 @@ class PlayList:
                     s+=[t]
         return s
     
-    def arrangeAlphabetically(self,list):
+    def arrangeAlphabetically(self, playlist):
         """Arranges the received Playlist Alphabetically
         List: list from getBy() methods
-        Returns alphabeticalized List of Songs but still follows the format"""
+        Returns alphabeticalized List of Songs but still follows the format"""\
+        
         pass
-
+    
     def shuffle(self):
         """Receives a list from getBy() methods and return the list in shuffled order"""
-        pass
+        pass    
     
     def showPlaylist(self):
         """Shows the Playist(Default: Alphabetical)"""
@@ -62,19 +63,22 @@ class PlayList:
         total_seconds = minutes * 60 + seconds
         return total_seconds
 
-    def getTotalDuration(self,list):
+    def getTotalDuration(self, list):
         """Returns total duration of the playlist"""
-        total_seconds = 0
-
-        for items in list:
-            if items is None:
-                break
-            minutes, seconds = map(int, items.duration.split(":"))
-            total_seconds += minutes * 60 + seconds
-
-        total_minutes = total_seconds // 60
-        remaining_seconds = total_seconds % 60
-        return f"{total_minutes}:{remaining_seconds:02d}"
+    
+        TotalDuration = 0
+        with open('Library.csv', 'r') as storage:
+            read = csv.reader(storage)
+            next(read)  
+            for item in read:
+                duration = item[3]  
+                minutes, seconds = duration.split(":")  
+                TotalDuration += int(minutes) * 60 + int(seconds)  
+        
+        totalMinutes = TotalDuration // 60
+        Seconds = TotalDuration % 60
+        result =  f"Total Time: {totalMinutes}:{Seconds:02d}\n Total Seconds: {TotalDuration}"
+        return result
 
 
     def __str__(self):
