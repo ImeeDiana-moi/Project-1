@@ -112,17 +112,16 @@ class PlayList:
         """Returns total duration of the playlist"""
     
         TotalDuration = 0
-        with open('Library.csv', 'r') as storage:
-            read = csv.reader(storage)
-            next(read)  
-            for item in read:
-                duration = item[3]  
-                minutes, seconds = duration.split(":")  
-                TotalDuration += int(minutes) * 60 + int(seconds)  
+        for track in self.storage0:
+            if track is None:
+                continue 
+            duration = track.duration  
+            minutes, seconds = duration.split(":")  
+            TotalDuration += int(minutes) * 60 + int(seconds)  
         
-        totalMinutes = TotalDuration // 60
-        Seconds = TotalDuration % 60
-        result =  f"\tTotal Time: {totalMinutes}:{Seconds:02d}\n\tTotal Seconds: {TotalDuration}"
+        Total_Minutes = TotalDuration // 60
+        total_Seconds = TotalDuration % 60
+        result = f"Total Time: {Total_Minutes}:{total_Seconds} \nTotal Time(s): {TotalDuration}s"
         return result
     
     def convert(self):
