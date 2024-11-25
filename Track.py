@@ -1,5 +1,4 @@
 import csv
-import random
 from datetime import datetime
 
 class Track:

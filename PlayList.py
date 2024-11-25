@@ -20,65 +20,80 @@ class PlayList:
         for items in list:
             self.storage0+=[items]
 
-    def getByArtist(self, artist):
-        """Returns a list of songs based on Artist name, else return none"""
+    # def getByArtist(self, artist):
+    #     """Returns a list of songs based on Artist name, else return none"""
         
+    def getBy(self, value, mode):
+        """Get playlist based on value(either by title, artist, or album), 
+        Mode: tr- individual track, ar- by artist, al by album"""
         with open('Library.csv', 'r') as storage:
-            read=csv.reader(storage)
-            s=[]
-            for lines in read:
-                if artist in lines[1]:
-                    t=Track(lines[0],lines[1],lines[2],lines[3])
-                    s+=[t]
-        return s
+                read=csv.reader(storage)
+                if mode == "tr":
+                    s=[]
+                    for lines in read:
+                        if value in lines[0]:
+                            t=lines[[0],lines[1],lines[2],lines[3]]
+                            s+=[t]
+                    return s
+                elif mode == "ar":
+                    s=[]
+                    for lines in read:
+                        if value in lines[1]:
+                            t=[lines[0],lines[1],lines[2],lines[3]]
+                            s+=[t]
+                    return s
+                elif mode == "al":
+                    s=[]
+                    
+                    for lines in read:
+                        if value in lines[2]:
+                            t=lines[0],lines[1],lines[2],lines[3]
+                            s+=[t]
+                    return s
+                return "Nothing"
     
-    def getByAlbum(self, album):
-        """Returns a list of songs based on Artist name, else return none"""
-        album=str(album)
-        s=[]
-        with open('Library.csv', 'r') as storage:
-            read=csv.reader(storage)
-            for lines in read:
-                if album in lines[2]:
-                    t=Track(lines[0],lines[1],lines[2],lines[3])
-                    s+=[t]
-        return s
     
-    def arrangeAlphabetically(self, playlist):
-        """Arranges the received Playlist Alphabetically
-        List: list from getBy() methods
-        Returns alphabeticalized List of Songs but still follows the format"""\
-        
-        pass
-
-    def convert(self):
-        """Convert content into list for storing data into csv file"""
-        s=[]
-        for items in self.storage0:
-            if items == None:
-                break
-            s +=items
-        return s
-
-    def addtoStorage(self, name):
-        """Adds the queue into the csv file
+    def addtoStorage(self, name): #Need improvement
+        """Adds the Playlist into the csv file
         Arguments: Name(Set a custom name for the queue)"""
-        data=[[name,self.convert()]]
-        manage=open('Storage.csv', 'a',newline='')
+        data=[]
+        for items in self.convert():
+            data+=[[name,items[0],items[1],items[2],items[3]]]
+        # return data
+        manage=open('Playlists.csv', 'a',newline='')
         write= csv.writer(manage)
         write.writerows(data)
         manage.close()
 
-    def findcustomplaylist(self, name):
+    # def getByAlbum(self, album):
+    #     """Returns a list of songs based on Artist name, else return none"""
+    #     album=str(album)
+    #     s=[]
+    #     with open('Library.csv', 'r') as storage:
+    #         read=csv.reader(storage)
+    #         for lines in read:
+    #             if album in lines[2]:
+    #                 t=Track(lines[0],lines[1],lines[2],lines[3])
+    #                 s+=[t]
+    #     return s
+    
+    def arrangeAlphabetically(self, playlist): #Bonuss
+        """Arranges the received Playlist Alphabetically
+        List: list from getBy() methods
+        Returns alphabeticalized List of Songs but still follows the format"""
+        
+        pass
+
+    def findcustomplaylist(self, name): #need improvement
         with open("Storage.csv", mode='r',newline='') as reader:
             read=csv.reader(reader)
+            plays=f"<-----{name}----->"
             for i in read:
                 if name in i[0]:
-                    for items in i[1]:
-                        print(items)
+                    plays+=f""
                 print("Wakay Pulos")
     
-    def shuffle(self):
+    def shuffle(self): #Bonus
         """Receives a list from getBy() methods and return the list in shuffled order"""
         pass    
     
@@ -109,23 +124,42 @@ class PlayList:
         Seconds = TotalDuration % 60
         result =  f"\tTotal Time: {totalMinutes}:{Seconds:02d}\n\tTotal Seconds: {TotalDuration}"
         return result
+    
+    def convert(self):
+        """Convert content into list for storing data into csv file"""
+        s=[]
+        for items in self.storage0:
+            if items == None:
+                break
+            s +=[[items[0],items[1],items[2],items[3]]]
+        return s
 
 
     def __str__(self):
-        plist="<-----PlayList----->\n"
-        for i in self.storage0:
-            plist+=f"\n{i}\n"
-        plist+=f"\nTotal Duration: \n{self.getTotalDuration(self.storage0)}\n<-----End----->"
+        plist="Playlist\n"
+        for items in self.storage0:
+            plist+=f"\nTitle: {items[0]}\nArtist: {items[1]}\nAlbum: {items[2]}\nDuration: {items[3]}\n"
         return plist
+
+        # if self.getSize() == 0:
+        #     return "Playlist is Empty!"
+        # plist=f"Playlist Name: {self.getpName()}"
+        
+        
+    
 
             
         
 
 pl=PlayList()
-
-pl.addtoPlaylist(pl.getByArtist("Ariana Grande"))
-# pl.addtoStorage("Custom")
-# pl.findcustomplaylist("Custom")
+# pl.addtoPlaylist(pl.getBy("Ariana Grande","ar"))
+# print(pl)
+# print(pl.getBy("Ariana Grande",'ar'))
+# pl.addtoPlaylist(pl.getBy("Ariana Grande",'ar'))
+# # print(pl.convert())
+# # print(pl.addtoStorage("Custom"))
+# pl.addtoStorage("FUck Yeah")
+# # pl.findcustomplaylist("Custom")
 # print(pl.addtoPlaylist(pl.getByAlbum("1989")))
-print(pl)
+# print(pl)
 # print(pl.getTotalDuration(pl.getByArtist("Ariana Grande")))

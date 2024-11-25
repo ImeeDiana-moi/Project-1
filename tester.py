@@ -140,3 +140,17 @@ data=[["title","artist","album","duration"]]
 
 # addtoLibrary()
         
+# with open("Playlists.csv", mode='r', newline='') as reader:
+#     read=csv.reader(reader)
+#     count=0
+#     for i in read:
+#         count+=1
+#     print(count)
+
+# PlaylistName,title,artist,album,duration
+
+with open("Playlists.csv", mode="r", newline='') as reader:
+    read=csv.reader(reader)
+    for items in read:
+        print(f"Items: {items[0]},{items[1]},{items[2]},{items[3]}")
+    

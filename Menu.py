@@ -10,10 +10,10 @@ from Track import Track
 
 #Pre made menus
 main={
-    1:"Music Library",
-    2:"View Queue",
+    1:"View Queue",
+    2:"Playlists",
     3:"Add Tracks",
-    4:"Add PLayList",
+    4:"Music Library",
     0:"Quit"
 }
 menu1={
@@ -45,7 +45,10 @@ add={
     2:"Add to Playlist",
     0:"Return"
 }
-
+# playLists={
+#     1:"Create New Playlist",
+#     0:"Return"
+# }
 #Methods
 def printmenu(menu):
     for items in menu:
@@ -63,13 +66,21 @@ def addtoLibrary():
     with open('Storage.csv', 'r') as storage:
         read=csv.reader(storage)
         for lines in read:
-            if data[0] not in lines[0]:
+            if data[0][0] in lines[0]:
                 print("Break")
-        manage=open('Storage.csv', 'a', newline='')
+        manage=open('Playlists.csv', 'a', newline='')
         write= csv.writer(manage)
         write.writerows(data) 
         manage.close()
 
+def showLibrary():
+    s="<-----Music Library----->\n"
+    with open("Library.csv", mode='r', newline='') as reader:
+        read=csv.reader(reader)
+        for items in read:
+            s+=f"\nTitle: {items[0]}\nArtist: {items[1]}\nAlbum: {items[2]}\nDuration: {items[3]}\n"
+    s+="<----End of Library----->"
+    print(s)
 line1 = "<---Welcome to Python Music Player--->"
 
 #Start
@@ -88,24 +99,44 @@ if __name__ == "__main__":
         if first == 1: # Music Library
             while True:
                 printmenu(menu1)
-                try:
-                    one=int(input("Enter Choice: "))
-                except ValueError:
-                    print("Invalid Input. Please Enter a Number.")
-                    continue
-                if one in menu1:
-                    print(f"You selected {menu1[one]}.")
-                    break
-                elif one == 0:
-                    break
-                else:
-                    print("Invalid option.")
+                break
 
-        elif first == 2: # View Queue
+        elif first == 2: # View Playlists
+            # with open('Playlist.csv', mode='r',newline='') as reader:
+            #     read=csv.reader(reader)
+            # manager=open('Playlists.csv')
+            # writer=csv.writer(manager)
             while True:
-                printmenu(menu1)
-                one=int(input("Enter Choice: "))
+                with open('Playlists.csv', mode='r',newline='') as reader:
+                    read=csv.reader(reader)
+                    count=0
+                    for i in read:
+                        count+=1
+                    if count == 0:
+                        print("You have no Playlists!\n[1] Create New Playlist\n[0] Return")
+                        two=input("Enter Choice: ")
+                        if two == "1":
+                            name=input("Enter Playlist Name: ")
+                            choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
+                            if choose=='1':#choose from library
+                                pass
+                            elif choose=='2': #add custom
+                                pass
 
+                            elif choose=='0':
+                                break
+                            else:
+                                continue
+                
+                        elif two=='0':
+                            break
+                        else:
+                            print("Invalid Choice. Try Again!")
+                            continue
+                    elif count !=0:
+                        print("naa")
+                        break
+                    
         elif first == 3: # Add Tracks
             while True:
                 printmenu(add)
@@ -122,8 +153,9 @@ if __name__ == "__main__":
 
         elif first == 4: # Add Playlist
             while True:
-                printmenu(menu1)
-                one=int(input("Enter Choice: "))
+                showLibrary()
+                break
+            
 
         elif first==0: # Quit
             break

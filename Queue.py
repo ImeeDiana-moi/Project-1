@@ -60,11 +60,11 @@ class Queue:
             s += [[items]]
         return s
     
-    def convertTime(self):
-        time=self.duration
-        minutes, seconds = map(int, time.split(":"))
-        total_seconds = minutes * 60 + seconds
-        return total_seconds
+    # def convertTime(self):
+    #     time=self.duration
+    #     minutes, seconds = map(int, time.split(":"))
+    #     total_seconds = minutes * 60 + seconds
+    #     return total_seconds
     
     def getTotalDuration(self):
         """Returns total duration of the Queue"""
@@ -153,19 +153,19 @@ queue = Queue()
 
 # queue.toggleRepeat()
 
-queue.playTrack() #Play 1st song
+# queue.playTrack() #Play 1st song
 
-queue.skipTrack() #Skip to 2nd song
-# queue.playTrack() #PLay 2nd song
+# queue.skipTrack() #Skip to 2nd song
+# # queue.playTrack() #PLay 2nd song
 
-queue.skipTrack() #Skip to 3rd song
-queue.prevTrack()
-queue.prevTrack()
+# queue.skipTrack() #Skip to 3rd song
+# queue.prevTrack()
+# queue.prevTrack()
 # queue.skipTrack()
 # queue.skipTrack()
 # queue.playTrack() #Play 3rd song
 
-queue.prevTrack() #Go back to 2nd song
+# queue.prevTrack() #Go back to 2nd song
 # queue.playTrack() #Play 2nd song
 
 # queue.prevTrack() #Go back to 1st song
