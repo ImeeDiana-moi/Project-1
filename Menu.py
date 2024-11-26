@@ -91,7 +91,7 @@ def loadTracksToQueue(queue):
                 title, artist, album, duration = line
                 track = Track(title, artist, album, duration)
                 queue.enqueue(track)
-    print("Tracks loaded into the queue from Library.csv.")
+    print(f"Tracks loaded into the queue from Library.csv.\n")
 
 
 #Start

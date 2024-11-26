@@ -79,9 +79,6 @@ class Queue:
         total_minutes = total_seconds // 60
         remaining_seconds = total_seconds % 60
         return f"{total_minutes}:{remaining_seconds:02d}"
-    
-    def toggleRepeat(self):
-        self.repeat = True
 
     def skipTrack(self):
         if self.curr != -1 and self.curr < self.size - 1:
@@ -100,6 +97,8 @@ class Queue:
             self.curr = 0
         if self.curr < self.size and self.queue[self.curr] is not None:
             print(f"Now playing: {self.queue[self.curr]}")
+            print()
+            print(f"Next track: {self.queue[self.curr+1]}")
         else:
             print(f"No more tracks left.")
 
