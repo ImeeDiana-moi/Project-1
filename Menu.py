@@ -83,6 +83,22 @@ def showLibrary():
     print(s)
 line1 = "<---Welcome to Python Music Player--->"
 
+def loadTracksToQueue(queue):
+    try:
+        with open('Library.csv', mode='r') as storage:
+            reader = csv.reader(storage)
+            for line in reader:
+                if len(line) >= 4:  # Ensure all required data is present
+                    title, artist, album, duration = line
+                    track = Track(title, artist, album, duration)
+                    queue.enqueue(track)
+        print("Tracks loaded into the queue from Library.csv.")
+    except FileNotFoundError:
+        print("Error: Library.csv file not found.")
+    except Exception as e:
+        print(f"An error occurred while loading tracks: {e}")
+
+
 #Start
 if __name__ == "__main__":
     player= PlayList()
@@ -155,6 +171,29 @@ if __name__ == "__main__":
             while True:
                 showLibrary()
                 break
+            while True:
+                printmenu(commands)
+                choice = int(input("Enter Choice: "))
+                if choice == 1:  # Play Track
+                    if queue.getSize() == 0:
+                        print("The queue is empty. Loading tracks from Library.csv...")
+                        loadTracksToQueue(queue)  # Load tracks if queue is empty
+                    if queue.getSize() > 0:
+                        queue.playTrack()  # Play the current track
+                    else:
+                        print("No tracks available to play.")
+                elif choice == 2:
+                    queue.skipTrack()
+                elif choice == 3:
+                    queue.prevTrack()
+                elif choice == 4:
+                    queue.repeat = False
+                elif choice == 5:
+                    queue.repeat = True
+                    
+
+
+
             
 
         elif first==0: # Quit
