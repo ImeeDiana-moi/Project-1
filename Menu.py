@@ -84,19 +84,14 @@ def showLibrary():
 line1 = "<---Welcome to Python Music Player--->"
 
 def loadTracksToQueue(queue):
-    try:
-        with open('Library.csv', mode='r') as storage:
-            reader = csv.reader(storage)
-            for line in reader:
-                if len(line) >= 4:  # Ensure all required data is present
-                    title, artist, album, duration = line
-                    track = Track(title, artist, album, duration)
-                    queue.enqueue(track)
-        print("Tracks loaded into the queue from Library.csv.")
-    except FileNotFoundError:
-        print("Error: Library.csv file not found.")
-    except Exception as e:
-        print(f"An error occurred while loading tracks: {e}")
+    with open('Library.csv', mode='r') as storage:
+        reader = csv.reader(storage)
+        for line in reader:
+            if len(line) >= 4:  # Ensure all required data is present
+                title, artist, album, duration = line
+                track = Track(title, artist, album, duration)
+                queue.enqueue(track)
+    print("Tracks loaded into the queue from Library.csv.")
 
 
 #Start
