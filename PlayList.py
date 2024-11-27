@@ -110,7 +110,7 @@ class PlayList:
         return result
     
     def convert(self):
-        """Convert content into list for storing data into csv file"""
+        """Convert content into list"""
         s=[]
         for items in self.storage0:
             if items == None:
@@ -183,7 +183,18 @@ def listplaylists():
         plays+="<-----End----->"   
         print(plays)
         return all
-        
+def loadplaylist(playlistname):
+    with open('Playlists.csv',mode='r',newline='') as playlist:
+        read=csv.reader(playlist)
+        lista=[]
+        for items in read:
+            if items[0]==playlistname:
+                lista+=[[items[1],items[2],items[3],items[4]]]
+        return lista
+
+# prinat=loadplaylist("my playlist")
+# for items in prinat:
+#     print(items[0])
         
 # listplaylists()         
 

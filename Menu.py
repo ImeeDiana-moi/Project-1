@@ -1,6 +1,6 @@
 import csv
 from Queue import Queue, loadTracksToQueue
-from PlayList import PlayList, addPlaylist, showplaylists,listplaylists
+from PlayList import PlayList, addPlaylist, showplaylists,listplaylists,loadplaylist
 from Track import Track
 import LibraryManager
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
         if first == 1: #view queue
             while True:
-                print("Queue")
+                queue.playTrack()
                 break
             
         elif first == 2: # View Playlists
@@ -119,8 +119,10 @@ if __name__ == "__main__":
                                 name=lists[chois-1]
                                 showplaylists(name,'cus')
                                 play=int(input("[1] Play\n[0] Return\nEnter Choice: "))
-                                if play == 0:
-                                    pass
+                                if play == 1:
+                                    if queue.getSize()==0:
+                                        playlist.addtoPlaylist(loadplaylist(name))
+                                        queue.listEnqueue(playlist.convert())
                                 elif play==0:
                                     break
 
