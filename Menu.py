@@ -118,13 +118,23 @@ if __name__ == "__main__":
                                 chois=int(input("Enter Playlist Number: ")  )
                                 name=lists[chois-1]
                                 showplaylists(name,'cus')
-                                play=int(input("[1] Play\n[0] Return\nEnter Choice: "))
-                                if play == 1:
-                                    if queue.getSize()==0:
-                                        playlist.addtoPlaylist(loadplaylist(name))
-                                        queue.listEnqueue(playlist.convert())
-                                elif play==0:
-                                    break
+                                while True:
+                                    play=int(input("[1] Play\n[2] Next\n[3] Prev\n[4] Repeat ON\n[5] Repeat OFF\n[0] Return\nEnter Choice: "))
+                                    if play == 1:
+                                        if queue.getSize()==0:
+                                            playlist.addtoPlaylist(loadplaylist(name))
+                                            queue.listEnqueue(playlist.convert())
+                                            queue.playTrack()
+                                    elif play == 2:
+                                        queue.skipTrack()
+                                    elif play == 3:
+                                        queue.prevTrack()
+                                    elif play == 4:
+                                        queue.repeat = True
+                                    elif play == 5:
+                                        queue.repeat = False
+                                    elif play==0:
+                                        break
 
                             elif shu==2:
                                 name=input("\nEnter Playlist Name: ")
