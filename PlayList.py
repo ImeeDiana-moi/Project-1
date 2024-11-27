@@ -65,15 +65,8 @@ class PlayList:
         """Arranges the received Playlist Alphabetically
         List: list from getBy() methods
         Returns alphabeticalized List of Songs but still follows the format"""
-        Arranged = [track for track in self.storage0 if track is not None]
-        word = len(Arranged)
-
-        for i in range(word):
-            for j in range(0, word - i - 1):
-                if Arranged[j][0] > Arranged[j + 1][0]:
-                    Arranged[j], Arranged[j + 1] = Arranged[j + 1], Arranged[j]
-
-        return f"Sorted Playlist \n{Arranged}"
+        
+        pass
 
     def findcustomplaylist(self, name): #need improvement
         with open("Playlists.csv", mode='r',newline='') as reader:
@@ -215,11 +208,3 @@ def listplaylists():
 # print(pl.addtoPlaylist(pl.getByAlbum("1989")))
 # print(pl)
 # print(pl.getTotalDuration(pl.getByArtist("Ariana Grande")))
-pl.addtoPlaylist([
-
-    ["Ahank U Next", "Ariana Grande", "Thank U Next", "3:27"],
-    ["CRings, Ariana Grande", "Thank U Next", "2:58"],
-    ["Break Free", "Ariana Grande", "My Everything, 3:34"]
-])
-
-print(pl.arrangeAlphabetically(pl.storage0))
