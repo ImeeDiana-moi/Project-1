@@ -135,6 +135,16 @@ class Queue:
             index+=1
         str+=f"\nTotal Duration: {self.getTotalDuration()}\n<---------End of Queue--------->"
         return str
+
+def loadTracksToQueue(queue):
+    with open('Library.csv', mode='r') as storage:
+        reader = csv.reader(storage)
+        for line in reader:
+            if len(line) >= 4:  # Ensure all required data is present
+                title, artist, album, duration = line
+                track = Track(title, artist, album, duration)
+                queue.enqueue(track)
+    print(f"Tracks loaded into the queue from Library.csv.\n")
     
 
 

@@ -1,14 +1,9 @@
-#Menu for project 1
-
-#imports
-from time import sleep
-import sys
 import csv
-from Queue import Queue
-from PlayList import PlayList
+from Queue import Queue, loadTracksToQueue
+from PlayList import PlayList, addPlaylist, showplaylists,listplaylists
 from Track import Track
+import LibraryManager
 
-#Pre made menus
 main={
     1:"View Queue",
     2:"Playlists",
@@ -45,58 +40,19 @@ add={
     2:"Add to Playlist",
     0:"Return"
 }
-# playLists={
-#     1:"Create New Playlist",
-#     0:"Return"
-# }
-#Methods
+
 def printmenu(menu):
     for items in menu:
         if items == 11:
             print("< page 1 0f 1 >")
         print(f"[{items}] {menu[items]}")
 
-def addtoLibrary():
-    data=[
-        [input("Enter Title: "),
-        input("Enter Artist: "),
-        input("Enter Album: "),
-        input("Enter Duration: ")],
-    ]
-    with open('Storage.csv', 'r') as storage:
-        read=csv.reader(storage)
-        for lines in read:
-            if data[0][0] in lines[0]:
-                print("Break")
-        manage=open('Playlists.csv', 'a', newline='')
-        write= csv.writer(manage)
-        write.writerows(data) 
-        manage.close()
 
-def showLibrary():
-    s="<-----Music Library----->\n"
-    with open("Library.csv", mode='r', newline='') as reader:
-        read=csv.reader(reader)
-        for items in read:
-            s+=f"\nTitle: {items[0]}\nArtist: {items[1]}\nAlbum: {items[2]}\nDuration: {items[3]}\n"
-    s+="<----End of Library----->"
-    print(s)
 line1 = "<---Welcome to Python Music Player--->"
 
-def loadTracksToQueue(queue):
-    with open('Library.csv', mode='r') as storage:
-        reader = csv.reader(storage)
-        for line in reader:
-            if len(line) >= 4:  # Ensure all required data is present
-                title, artist, album, duration = line
-                track = Track(title, artist, album, duration)
-                queue.enqueue(track)
-    print(f"Tracks loaded into the queue from Library.csv.\n")
-
-
-#Start
 if __name__ == "__main__":
-    player= PlayList()
+    manager=LibraryManager
+    playlist= PlayList()
     queue=Queue()
     while True:
         print(line1)
@@ -107,53 +63,93 @@ if __name__ == "__main__":
             print("Invalid Input. Please Enter a number.")
             continue
 
-        if first == 1: # Music Library
+        if first == 1: #view queue
             while True:
-                printmenu(menu1)
+                print("Queue")
                 break
-
+            
         elif first == 2: # View Playlists
-            # with open('Playlist.csv', mode='r',newline='') as reader:
-            #     read=csv.reader(reader)
-            # manager=open('Playlists.csv')
-            # writer=csv.writer(manager)
-            while True:
-                with open('Playlists.csv', mode='r',newline='') as reader:
-                    read=csv.reader(reader)
-                    count=0
-                    for i in read:
-                        count+=1
-                    if count == 0:
-                        print("You have no Playlists!\n[1] Create New Playlist\n[0] Return")
-                        two=input("Enter Choice: ")
-                        if two == "1":
-                            name=input("Enter Playlist Name: ")
-                            choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
-                            if choose=='1':#choose from library
-                                pass
-                            elif choose=='2': #add custom
-                                pass
+            print()
+            printmenu(menu1)
+            try:
+                p=int(input("Enter Choice: "))
+            except ValueError:
+                print("Invalid Input. Please Enter a number.")
+                continue
 
-                            elif choose=='0':
+            if p == 1: #show playlists
+                while True:
+                    with open('Playlists.csv', mode='r',newline='') as reader:
+                        read=csv.reader(reader)
+                        count=0
+                        for i in read:
+                            count+=1
+                        if count == 0: #if no playlists
+                            print("\nYou have no Playlists!\n[1] Create New Playlist\n[0] Return")
+                            two=input("Enter Choice: ")
+                            if two == "1":
+                                name=input("\nEnter Playlist Name: ")
+                                choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
+                                if choose=='1':#choose from library
+                                    addPlaylist(name)
+                                elif choose=='2': #add custom
+                                    pass
+
+                                elif choose=='0':
+                                    break
+                                else:
+                                    continue
+                    
+                            elif two=='0':
+                                break
+                            else:
+                                print("Invalid Choice. Try Again!")
+                                continue
+                        elif count !=0: #If there are playlists
+                            print()
+                            lists=listplaylists()
+                            try:
+                                shu=int(input("[1] Choose Playlist\n[2] Create Another Playlist\n[0] Return\nEnter Choice: "))
+                            
+                            except ValueError:
+                                print("Invalid Input. Please Enter a number.")
+                                continue
+                            if shu==1:  
+                                chois=int(input("Enter Playlist Number: ")  )
+                                name=lists[chois-1]
+                                showplaylists(name,'cus')
+                                play=int(input("[1] Play\n[0] Return\nEnter Choice: "))
+                                if play == 0:
+                                    pass
+                                elif play==0:
+                                    break
+
+                            elif shu==2:
+                                name=input("\nEnter Playlist Name: ")
+                                choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
+                                if choose=='1':#choose from library
+                                    addPlaylist(name)
+
+                            elif shu==0:
                                 break
                             else:
                                 continue
-                
-                        elif two=='0':
-                            break
-                        else:
-                            print("Invalid Choice. Try Again!")
-                            continue
-                    elif count !=0:
-                        print("naa")
-                        break
-                    
+            #show premade playlists by artist   
+            elif p == range(2,10):
+                continue
+            else:
+                continue
+
+
+
+
+
         elif first == 3: # Add Tracks
             while True:
                 printmenu(add)
                 three=int(input("Enter Choice: "))
                 if three==1:
-                    addtoLibrary()
+                    manager.addtoLibrary()
                     
                 elif three == 2:
                     pass
@@ -164,7 +160,7 @@ if __name__ == "__main__":
 
         elif first == 4: # Add Playlist
             while True:
-                showLibrary()
+                manager.showLibrary()
                 break
             while True:
                 printmenu(commands)
@@ -185,6 +181,10 @@ if __name__ == "__main__":
                     queue.repeat = False
                 elif choice == 5:
                     queue.repeat = True
+                elif choice == 7:
+                    break
+                else:
+                    continue
                     
 
 
