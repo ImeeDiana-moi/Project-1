@@ -23,11 +23,12 @@ class Queue:
         self.queue[index]=song
         self.increaseSize()
 
-    def listEnqueue(self, list):
-        """Add playlists to queue.
-        Reeceive playlists from converted list."""
-        for items in list:
-            self.enqueue(Track(items[0],items[1],items[2],items[3]))
+    #Kani pwede
+    # def listEnqueue(self, list): 
+    #     """Add playlists to queue.
+    #     Reeceive playlists from converted list."""
+    #     for items in list:
+    #         self.enqueue(Track(items[0],items[1],items[2],items[3]))
 
     def dequeue(self):
         """Remove Song from Queue"""
@@ -39,7 +40,7 @@ class Queue:
             self.size-=1
             return item
         
-    # def addtoStorage(self, name):
+    # def addtoStorage(self, name): wala ni apil
     #     """Adds the queue into the csv file
     #     Arguments: Name(Set a custom name for the queue)"""
     #     name=[[name]]
@@ -66,7 +67,7 @@ class Queue:
             s += [[items]]
         return s
     
-    # def convertTime(self):
+    # def convertTime(self): wala ni apil
     #     time=self.duration
     #     minutes, seconds = map(int, time.split(":"))
     #     total_seconds = minutes * 60 + seconds
@@ -156,7 +157,7 @@ def loadTracksToQueue(queue):
 
 queue = Queue()
 
-
+#wala ni apil tanan diri
 # song1 = Track("Nikes", "Frank Ocean", "Blonde", "5:14")
 # song2 = Track("Heartless", "The Weeknd", "After Hours", "3:18")
 # song3 = Track("Thinkin Bout You", "Frank Ocean", "Channel Orange", "3:21")

@@ -167,31 +167,35 @@ def showplaylists(name, mode):
         print (songs)
 # showplaylists("me","all")
 
-def listplaylists():
-    with open('Playlists.csv',mode='r',newline='') as playlist:
-        read=csv.reader(playlist)
-        all=[]
-        iter=1
-        for lists in read:
-            if lists[0] not in all:
-                all+=[lists[0]]
-        plays=f"<-----Playlists----->\n"  
-        for items in all:
-            plays+=f"[{iter}] {items}\n" 
-            iter+=1  
+#kani duha ka method pwede
+# def listplaylists():
+#     with open('Playlists.csv',mode='r',newline='') as playlist:
+#         read=csv.reader(playlist)
+#         all=[]
+#         iter=1
+#         for lists in read:
+#             if lists[0] not in all:
+#                 all+=[lists[0]]
+#         plays=f"<-----Playlists----->\n"  
+#         for items in all:
+#             plays+=f"[{iter}] {items}\n" 
+#             iter+=1  
 
-        plays+="<-----End----->"   
-        print(plays)
-        return all
-def loadplaylist(playlistname):
-    with open('Playlists.csv',mode='r',newline='') as playlist:
-        read=csv.reader(playlist)
-        lista=[]
-        for items in read:
-            if items[0]==playlistname:
-                lista+=[[items[1],items[2],items[3],items[4]]]
-        return lista
+#         plays+="<-----End----->"   
+#         print(plays)
+#         return all
+# def loadplaylist(playlistname):
+#     with open('Playlists.csv',mode='r',newline='') as playlist:
+#         read=csv.reader(playlist)
+#         lista=[]
+#         for items in read:
+#             if items[0]==playlistname:
+#                 lista+=[[items[1],items[2],items[3],items[4]]]
+#         return lista
 
+
+
+#ayaw ni
 # prinat=loadplaylist("my playlist")
 # for items in prinat:
 #     print(items[0])
