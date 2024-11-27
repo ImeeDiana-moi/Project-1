@@ -23,7 +23,7 @@ class Queue:
         self.queue[index]=song
         self.increaseSize()
 
-    #Kani pwede
+    
     # def listEnqueue(self, list): 
     #     """Add playlists to queue.
     #     Reeceive playlists from converted list."""
