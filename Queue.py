@@ -1,4 +1,5 @@
 import csv
+import random
 from Track import Track
 from PlayList import PlayList
 
@@ -139,9 +140,14 @@ class Queue:
                 print(f"\n{self.queue[i]}\n")
             print("<---------End of Queue--------->")
             
+    def shuffleQueue(self):
+        tracks = self.queue[:self.size]
+        random.shuffle(tracks)
+        self.queue[:self.size] = tracks
+
     def player(self):
         if self.shuffle == True:
-            s='Yes'
+            self.shuffleQueue()
         s='No'
         if self.repeat==True:
             r='Yes'
@@ -169,13 +175,13 @@ def loadTracksToQueue(queue):
     print(f"Tracks loaded into the queue from Library.csv.\n")
     
 
-p=PlayList()
-# print(p.loadplaylist('my playlist'))
-p.addtoPlaylist(p.loadplaylist('my playlist'))
+# p=PlayList()
+# # print(p.loadplaylist('my playlist'))
+# # p.addtoPlaylist(p.loadplaylist('my playlist'))
 queue = Queue()
-queue.listEnqueue(p.convert()) 
-print(queue.player())
-# queue.setstate(1)
+# queue.listEnqueue(p.convert()) 
+# print(queue.player())
+# # queue.setstate(1)
 # print(queue)
 
 #wala ni apil tanan diri
