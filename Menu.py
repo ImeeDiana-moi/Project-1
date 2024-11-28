@@ -149,10 +149,9 @@ if __name__ == "__main__":
                                 continue
             #show premade playlists by artist 
              
-            #kani pwede  
-            # elif p ==2:
-            #     playlist.addtoPlaylist(playlist.getBy(menu1[p], 'ar'))
-            #     queue.listEnqueue(playlist.convert())
+            elif p ==2:
+                playlist.addtoPlaylist(playlist.getBy(menu1[p], 'ar'))
+                queue.listEnqueue(playlist.convert())
                 
                 
 
