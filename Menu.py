@@ -1,6 +1,6 @@
 import csv
 from Queue import Queue, loadTracksToQueue
-from PlayList import PlayList, addPlaylist, showplaylists,listplaylists,loadplaylist
+from PlayList import PlayList
 from Track import Track
 import LibraryManager
 
@@ -33,7 +33,6 @@ commands={
     4:"Turn Off Repeat",
     5:"Turn ON Repeat",
     6:"Clear Queue",
-    7:"Exit"
 }
 add={
     1:"Add to Library",
@@ -55,8 +54,9 @@ if __name__ == "__main__":
     playlist= PlayList()
     queue=Queue()
     while True:
-        print(line1)
-        printmenu(main)
+        print(queue)
+        # print(line1)
+        # printmenu(main)
         try:
             first=int(input("Enter Choice: "))
         except ValueError:
@@ -91,7 +91,7 @@ if __name__ == "__main__":
                                 name=input("\nEnter Playlist Name: ")
                                 choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
                                 if choose=='1':#choose from library
-                                    addPlaylist(name)
+                                    playlist.addPlaylist(name)
                                 elif choose=='2': #add custom
                                     pass
 
@@ -108,7 +108,7 @@ if __name__ == "__main__":
                         
                         elif count !=0: #If there are playlists
                             print()
-                            lists=listplaylists()
+                            lists=playlist.listplaylists()
                             try:
                                 shu=int(input("[1] Choose Playlist\n[2] Create Another Playlist\n[0] Return\nEnter Choice: "))
                             
@@ -118,12 +118,12 @@ if __name__ == "__main__":
                             if shu==1:  
                                 chois=int(input("Enter Playlist Number: ")  )
                                 name=lists[chois-1]
-                                showplaylists(name,'cus')
+                                playlist.showplaylists(name,'cus')
                                 while True:
                                     play=int(input("[1] Play\n[2] Next\n[3] Prev\n[4] Repeat ON\n[5] Repeat OFF\n[0] Return\nEnter Choice: "))
                                     if play == 1:
                                         if queue.getSize()==0:
-                                            playlist.addtoPlaylist(loadplaylist(name))
+                                            playlist.addtoPlaylist(playlist.loadplaylist(name))
                                             queue.listEnqueue(playlist.convert())
                                             queue.playTrack()
                                     elif play == 2:
@@ -141,7 +141,7 @@ if __name__ == "__main__":
                                 name=input("\nEnter Playlist Name: ")
                                 choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
                                 if choose=='1':#choose from library
-                                    addPlaylist(name)
+                                    playlist.addPlaylist(name)
 
                             elif shu==0:
                                 break
@@ -150,17 +150,13 @@ if __name__ == "__main__":
             #show premade playlists by artist 
              
             elif p ==2:
-                playlist.addtoPlaylist(playlist.getBy(menu1[p], 'ar'))
-                queue.listEnqueue(playlist.convert())
+                print(menu1[p])
+                # playlist.addtoPlaylist(playlist.getBy(menu1[p], 'ar'))
+                # queue.listEnqueue(playlist.convert())
                 
                 
-
             else:
                 continue
-
-
-
-
 
         elif first == 3: # Add Tracks
             while True:

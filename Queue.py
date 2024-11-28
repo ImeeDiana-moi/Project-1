@@ -1,5 +1,6 @@
 import csv
 from Track import Track
+from PlayList import PlayList
 
 class Queue:
     def __init__(self,size:int=50):
@@ -8,10 +9,17 @@ class Queue:
         self.size=0
         self.curr = 0
         self.repeat = False
+        self.shuffle= True
+        self.state=True
 
     def increaseSize(self):
         """Increase Queue Size"""
         self.size +=1
+    def setstate(self,mode):
+        if mode == 1:
+            self.state=False
+        elif mode==2:
+            self.state=True
 
     def getSize(self):
         """Return Queue Size"""
@@ -28,7 +36,7 @@ class Queue:
         """Add playlists to queue.
         Reeceive playlists from converted list."""
         for items in list:
-            self.enqueue(Track(items[0],items[1],items[2],items[3]))
+            self.enqueue(Track(items[1],items[2],items[3],items[4]))
 
     def dequeue(self):
         """Remove Song from Queue"""
@@ -131,17 +139,24 @@ class Queue:
                 print(f"\n{self.queue[i]}\n")
             print("<---------End of Queue--------->")
             
-    def __str__(self):
-        """Should return items in the queue"""
-        str="<------Songs in Queue----->"
-        index=0
-        while index < len(self.queue):
-            if self.queue[index]==None:
-                break
-            str+=f"\n{self.queue[index]}\n"
-            index+=1
-        str+=f"\nTotal Duration: {self.getTotalDuration()}\n<---------End of Queue--------->"
-        return str
+    def player(self):
+        if self.shuffle == True:
+            s='Yes'
+        s='No'
+        if self.repeat==True:
+            r='Yes'
+        r='No'
+        if self.state == False:
+            st="(Paused)"
+        else:
+            st=''
+        if self.getSize() !=0:
+            q=f'Total Duration: {self.getTotalDuration()}\nShuffled: {s}\tRepeat: {r}\n\
+Tracks:\nCurrently Playing {st}:\n\n'
+            return q
+        return 'There is nothing in Queue!\nSelect Playlist.\n'
+
+
 
 def loadTracksToQueue(queue):
     with open('Library.csv', mode='r') as storage:
@@ -154,8 +169,14 @@ def loadTracksToQueue(queue):
     print(f"Tracks loaded into the queue from Library.csv.\n")
     
 
-
+p=PlayList()
+# print(p.loadplaylist('my playlist'))
+p.addtoPlaylist(p.loadplaylist('my playlist'))
 queue = Queue()
+queue.listEnqueue(p.convert()) 
+print(queue.player())
+# queue.setstate(1)
+# print(queue)
 
 #wala ni apil tanan diri
 # song1 = Track("Nikes", "Frank Ocean", "Blonde", "5:14")
