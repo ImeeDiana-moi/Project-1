@@ -205,7 +205,7 @@ class PlayList:
                 iter+=1  
 
             plays+="<-----End----->"   
-            print(plays)
+            # print(plays)
             return all
     def addPlaylist(self,name):
         with open("Library.csv",mode='r',newline='') as reader:
@@ -231,28 +231,62 @@ class PlayList:
                 manage.close()
 
 
-    def playlistbypage(self):
-        page=1
-        if self.getSize()!=0:
-            plist=f'Playlist Name: {self.getPlaylistName()}\nTotal Duration: {self.getTotalDuration(self.storage0)}\nTracks:\n'
-            counter=1
-            maxpage=1
-            for songs in self.storage0:
-                plist+=f'[{counter}] {songs[1]}\n'
-                counter+=1
-            if counter >= 6:
-                maxpage+=1
-            plist+=f"Page {page} of {maxpage}"
-            return plist
-        else:
-            return "Nothing In playlist"
+    # def playlistbypage(self):
+    #     page=1
+    #     if self.getSize()!=0:
+    #         plist=f'Playlist Name: {self.getPlaylistName()}\nTotal Duration: {self.getTotalDuration(self.storage0)}\nTracks:\n'
+    #         counter=1
+    #         maxpage=1
+    #         for songs in self.storage0:
+    #             plist+=f'[{counter}] {songs[1]}\n'
+    #             counter+=1
+    #         if counter > 6:
+    #             maxpage+=1
+    #         plist+=f"Page {page} of {maxpage}"
+    #         return plist
+    #     else:
+    #         return "Nothing In playlist"
+    def playlistbypage(self, page=1, items_per_page=5):
+        """
+        Displays the list of playlists with pagination.
+
+        Args:
+            playlists (list[str]): List of playlist names.
+            page (int): Current page number.
+            items_per_page (int): Number of playlists to display per page.
+        """
+        playlists=self.storage0
+        total_playlists = len(playlists)
+        total_pages = (total_playlists + items_per_page - 1) // items_per_page  # Ceiling division
+
+        # Validate and adjust the current page
+        page = max(1, min(page, total_pages))
+
+        # Calculate the range of playlists to display
+        start_index = (page - 1) * items_per_page
+        end_index = min(start_index + items_per_page, total_playlists)
+        playlists_to_display = playlists[start_index:end_index]
+
+        print("\n<----- Playlists ----->")
+        for idx, playlist in enumerate(playlists_to_display, start=start_index + 1):
+            print(f"[{idx}] {playlist}")
+
+        print(f"\n<Page {page} of {total_pages}>\n[11] Previous Page\n[12] Next Page\n[0] Exit to Main Menu")
+
+        return page
+
+
 
 pl=PlayList()
-# print(pl.playlistbypage())
+# # print(pl.playlistbypage())
 # prinat=pl.loadplaylist("my playlist")
 # pl.addtoPlaylist(prinat)
-# # print(pl.getPlaylistName())
-# print(pl.playlistbypage())
+# pl.addtoPlaylist(prinat)
+# pl.addtoPlaylist(prinat)
+# # # print(pl.getPlaylistName())
+# pl.playlistbypage()
+# pl.playlistbypage(2)
+# pl.playlistbypage(3)
 # pl.addtoPlaylist(pl.getBy("Ariana Grande","ar"))
 # # print(pl)
 # # pl.addtoStorage("Imee")

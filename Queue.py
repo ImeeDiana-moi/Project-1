@@ -145,8 +145,9 @@ class Queue:
         random.shuffle(tracks)
         self.queue[:self.size] = tracks
 
-    def player(self):
+    def __str__(self):
         if self.shuffle == True:
+            s='Yes'
             self.shuffleQueue()
         s='No'
         if self.repeat==True:
@@ -159,6 +160,7 @@ class Queue:
         if self.getSize() !=0:
             q=f'Total Duration: {self.getTotalDuration()}\nShuffled: {s}\tRepeat: {r}\n\
 Tracks:\nCurrently Playing {st}:\n\n'
+            
             return q
         return 'There is nothing in Queue!\nSelect Playlist.\n'
 
@@ -175,14 +177,15 @@ def loadTracksToQueue(queue):
     print(f"Tracks loaded into the queue from Library.csv.\n")
     
 
-# p=PlayList()
-# # print(p.loadplaylist('my playlist'))
-# # p.addtoPlaylist(p.loadplaylist('my playlist'))
-queue = Queue()
+p=PlayList()
+# print(p.loadplaylist('my playlist'))
+# p.addtoPlaylist(p.loadplaylist('my playlist'))
+# queue = Queue()
 # queue.listEnqueue(p.convert()) 
+# queue.playTrack()
 # print(queue.player())
-# # queue.setstate(1)
-# print(queue)
+# queue.setstate(1)
+# print(queue.player())
 
 #wala ni apil tanan diri
 # song1 = Track("Nikes", "Frank Ocean", "Blonde", "5:14")
