@@ -33,6 +33,8 @@ commands={
     4:"Turn Off Repeat",
     5:"Turn ON Repeat",
     6:"Clear Queue",
+    7:"Shuffle Queue",
+    0:"Return"
 }
 add={
     1:"Add to Library",
@@ -55,8 +57,8 @@ if __name__ == "__main__":
     queue=Queue()
     while True:
         print(queue)
-        # print(line1)
-        # printmenu(main)
+        print(line1)
+        printmenu(main)
         try:
             first=int(input("Enter Choice: "))
         except ValueError:
@@ -196,6 +198,9 @@ if __name__ == "__main__":
                 elif choice == 5:
                     queue.repeat = True
                 elif choice == 7:
+                    queue.shuffleQueue()
+                    print(queue)
+                elif choice == 0:
                     break
                 else:
                     continue
