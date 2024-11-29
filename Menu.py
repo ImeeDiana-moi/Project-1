@@ -45,18 +45,20 @@ line1 = "<---Welcome to Python Music Player--->"
 if __name__ == "__main__":
     manager=LibraryManager
     plays=PlayList()
+    queue = Queue()
     while True:
         printmenu(main)
         choice1 = input("Enter Choice: ")
         if choice1 == "1":
             val=showplaylists()
+            
             while True:
                 if val==None:
                     dec=input("Would you like to create a playlist(y/n)?")
                     if dec =='y':
                         name=input("Enter Playlist Name:")
                         createplaylist(name)
-                        loadplaylist()
+
                         break
                     elif dec=='n':
                         break
@@ -64,16 +66,19 @@ if __name__ == "__main__":
                         print("Invalid Choice!")
                         continue
                 ch=input("\nEnter playlist number or enter 'c' to create a new Playlist\n[0] Return\nEnter Choice: ")
+                cho=len(val)
                 if ch=='c':
                     name=input("Enter Playlist Name:")
                     createplaylist(name)
-                    loadplaylist()
+
                     break
-                elif ch:
+                
+                elif int(ch) in range(cho+1):
                     plays.getPlaylist(val[int(ch)-1])
                     print(plays)
                 elif ch =='0':
                     break
+                # break
 
         elif choice1 == "2":
             manager.showLibrary()
@@ -86,7 +91,7 @@ if __name__ == "__main__":
                         if not manager.Library:
                             print("Library is empty. Add tracks to the library first.")
                         else:
-                            queue = Queue()
+                            # queue = Queue()
                             queue.listEnqueue(manager.Library)
                             print(queue.playTrack())
                     except Exception as e:
@@ -106,12 +111,27 @@ if __name__ == "__main__":
                             queue.listEnqueue(manager.Library[selected_index:])# Enqueue the selected track and all subsequent tracks
                             print(queue.playTrack())  # Play the selected track
                             break
+                elif choicelib=='3':
+                    while True:
+                        manager.addtoLibrary()
+                        again=input("Would you like to add another one(y/n)?")
+                        if again == 'n':
+                            break
+                        elif again =='y':
+                            continue
+                        else:
+                            print("Invalid Choice!")
+                            break
                 
                 elif choicelib == "0":
                     break
         elif choice1 == "3":
             """Manage Queue"""
             while True:
+                # queue = Queue()
+                if queue.getSize() == 0:
+                    print("The queue is empty. Add tracks before managing.")
+                    break
                 printmenu(commands)
                 choicelib1 = input("Enter Choice: ")
                 try:
