@@ -1,13 +1,12 @@
 import csv
 from Queue import Queue, loadTracksToQueue
-from PlayList import PlayList
+from PlayList import PlayList,showplaylists,createplaylist,loadplaylist
 from Track import Track
 import LibraryManager
 
 main={
     1:"Playlists",
     2:"Music Library",
-    3:"View Queue",
     0:"Quit"
 }
 # menu1={
@@ -29,22 +28,14 @@ commands={
     0:"Return"
 }
 library={
-    1:"Play All",
-    2:"Choose Track to Play",
-    3:"Add Tracks to Library",
+    1:"Play Library",
+    2:"Add Tracks to Library",
     0:"Return"
-}
-
-library1={
-    1:"Choose Track",
-    2:"Play all",
-    3:"Return"
 }
 
 def printmenu(menu):
     for items in menu:
-        if items == 11:
-            print("< page 1 0f 1 >")
+
         print(f"[{items}] {menu[items]}")
 
 
@@ -52,19 +43,36 @@ line1 = "<---Welcome to Python Music Player--->"
 
 if __name__ == "__main__":
     manager=LibraryManager
+    plays=PlayList()
     while True:
         printmenu(main)
         choice1 = input("Enter Choice: ")
         if choice1 == "1":
+            val=showplaylists()
             while True:
-                print("Playlist")
-                printmenu(playlists)
-                choicepl = input("Enter Choice: ")
-                if choicepl == "1":
-                    """Select Playlist"""
-                elif choicepl == "2":
-                    """Add tracks to Playlist"""
-                elif choicepl == "0":
+                
+                if val==None:
+                    dec=input("Would you like to create a playlist(y/n)?")
+                    if dec =='y':
+                        name=input("Enter Playlist Name:")
+                        createplaylist(name)
+                        loadplaylist()
+                        break
+                    elif dec=='n':
+                        break
+                    else:
+                        print("Invalid Choice!")
+                        continue
+                ch=input("\nEnter playlist number or enter 'c' to create a new Playlist\n[0] Return\nEnter Choice: ")
+                if ch=='c':
+                    name=input("Enter Playlist Name:")
+                    createplaylist(name)
+                    loadplaylist()
+                    break
+                elif ch:
+                    plays.getPlaylist(val[int(ch)-1])
+                    print(plays)
+                elif ch =='0':
                     break
 
         elif choice1 == "2":
@@ -106,5 +114,4 @@ if __name__ == "__main__":
                     break
         elif choice1 == "0":
             exit
-
 

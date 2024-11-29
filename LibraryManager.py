@@ -20,9 +20,6 @@ def showLibrary():
         s += str(track) + "\n"
     print(s)
 
-
-
-
 loadLibrary()    
     # with open("Library.csv", mode='r', newline='') as reader:
     #     read=csv.reader(reader)

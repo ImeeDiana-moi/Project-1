@@ -1,5 +1,17 @@
 import csv
 from Track import Track
+import LibraryManager
+playlists=[]
+def loadplaylist():
+    with open('Playlists.csv',mode='r',newline='') as playlist:
+        read=csv.reader(playlist)
+        for items in read:
+            playlists.append(Track(items[0],items[1],items[2],items[3],items[4]))
+#Do not delete this code
+loadplaylist()
+for i in playlists:
+    print(i)
+
 
 class PlayList:
     
@@ -19,19 +31,17 @@ class PlayList:
             self.storage0+=[items]
             self.increaseSize()
 
-
     def getPlaylistName(self):
         for items in self.storage0:
-            if items[0]!=None:
-                return items[0]
-            return None
-        
-    def loadplaylist(self,playlistname):
-        with open('Playlists.csv',mode='r',newline='') as playlist:
-            read=csv.reader(playlist)
-            for items in read:
-                if items[0]==playlistname:
-                    self.storage0+=Track(items[0],items[1],items[2],items[3],items[4])
+            return items.playlist
+
+    def getPlaylist(self,playlist_name):
+        """Gets tracks of playlist and add to self.storage"""
+        for items in playlists:
+            if items.playlist == playlist_name:
+                self.storage0.append(items)
+            self.increaseSize()
+    
 
         
     # def getBy(self, value, mode):
@@ -119,9 +129,9 @@ class PlayList:
         """Returns total duration of the playlist"""
         total=0
         for tracks in self.storage0:
-            total + tracks.duration
+            total + int(tracks.duration)
         
-        mins=total//60
+        mins=total // 60
         seconds=total % 60
         
         return str(mins)+":"+str(seconds)
@@ -215,14 +225,57 @@ class PlayList:
 
     def __str__(self):
         if self.getSize()==0:
-            return 'Select Playlist'
+            return 'No playlist selected'
         s=f"Playlist Name: {self.getPlaylistName()}\nTotal Duration: {self.getTotalDuration()}\nTracks:\n"
-        # for i in self.storage0:
-        #     print(i)
+        for i in self.storage0:
+            s+=f'\t{i}\n'
         return s
-            
         
+def createplaylist(name):
+    e=open('Playlists.csv', 'a',newline='')
+    w=csv.writer(e)
+    count=1
+    for tracks in LibraryManager.Library:
+        print(f"({count}) {tracks.title}")
+        count+=1
+    while True:
+        try:
+            ind=int(input("Choose Tracks(0 to exit): "))
+        except:
+            print("Enter valid Choice.")
+        if ind == 0:
+            break
+        track=LibraryManager.Library[ind-1]
+        # print(track.title)
+        w.writerows([[track.title,track.artist,track.album,track.duration,name]])
+
+    
+def showplaylists():
+    """Prints Playlist names from Playlist csv>
+    Return None if playlist.csv is empty"""
+    print("<-----Playlists----->")
+    if len(playlists)==0:
+        print("No Playlists. Create one.\n")
+        return None
+    count=1
+    l=[]
+    for items in playlists:
+        if items.playlist not in l:
+            l.append(items.playlist)
+    for items in l:
+        print(f"({count}) {items}")
+        count+=1
+    return l
+
+
+
+#Tests
+
+# createplaylist("My Playlist")
+# showplaylists()
 pl=PlayList()
+print(pl)
+pl.getPlaylist("Imee")
 print(pl)
                 
 

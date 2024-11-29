@@ -20,8 +20,8 @@ class Track:
         return self.album
     def getduration(self):
         # 208 seconds
-        minutes = self.duration // 60
-        seconds = self.duration % 60
+        minutes = int(self.duration) // 60
+        seconds = int(self.duration) % 60
         return str(minutes) + ":" + str(seconds)
     
     def settitle(self, newtitle):
@@ -40,7 +40,7 @@ class Track:
         return f"Title: {self.title}\nArtist: {self.artist}\nAlbum: {self.album}\nDuration: {self.duration}"
     
     def __str__(self):
-        return f'{self.title}-{self.artist}({self.duration})'
+        return f'{self.title}-{self.artist}({self.getduration()})'
     
 def addTrack():
     pass
