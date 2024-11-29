@@ -21,6 +21,19 @@ def showLibrary():
         s += f"[{count}]{str(track)}\n"
         count += 1
     print(s)
+    
+def addtoLibrary():
+    """Add track to library"""
+    title=input("Enter Title: ")
+    artist=input("Enter Artist: ")
+    album=input("Enter Album: ")
+    duration=input("Enter Duration(seconds): ")
+    data=[ [title,artist,album,duration]]
+    manage=open('Library.csv', 'a', newline='')
+    write= csv.writer(manage)
+    write.writerows(data) 
+    manage.close()
+    print("Succesfully added track.")
 
 loadLibrary()    
     # with open("Library.csv", mode='r', newline='') as reader:
@@ -47,19 +60,6 @@ loadLibrary()
 #     writer.writerows(data)
 
 
-# def addtoLibrary():
-#     data=[
-#         [input("Enter Title: "),
-#         input("Enter Artist: "),
-#         input("Enter Album: "),
-#         input("Enter Duration: ")],
-#     ]
-#     with open('Storage.csv', 'r') as storage:
-#         read=csv.reader(storage)
-#         for lines in read:
-#             if data[0][0] in lines[0]:
-#                 print("Break")
-#         manage=open('Playlists.csv', 'a', newline='')
-#         write= csv.writer(manage)
-#         write.writerows(data) 
-#         manage.close()
+
+
+# addtoLibrary()

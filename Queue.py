@@ -1,7 +1,7 @@
 import csv
 import random
 from Track import Track
-from PlayList import PlayList
+# from PlayList import PlayList
 
 class Queue:
     def __init__(self,size:int=50):
@@ -33,9 +33,9 @@ class Queue:
         self.queue[index]=song
         self.increaseSize()
     
-    def listEnqueue(self, tracks): 
+    def listEnqueue(self, receive): 
         """Add a list of Track objects to the queue."""
-        for track in tracks:
+        for track in receive:
             self.enqueue(track)
 
     def dequeue(self):
@@ -68,18 +68,15 @@ class Queue:
         return s
     
     def getTotalDuration(self):
-        """Returns total duration of the Queue"""
-        total_seconds = 0
-
-        for items in self.queue:
-            if items is None:
-                break
-            minutes, seconds = map(int, items.duration.split(":")) 
-            total_seconds += minutes * 60 + seconds
-
-        total_minutes = total_seconds // 60
-        remaining_seconds = total_seconds % 60
-        return f"{total_minutes}:{remaining_seconds:02d}"
+        """Returns total duration of the playlist"""
+        total=0
+        for tracks in self.queue:
+            total += int(tracks.duration)
+        
+        mins=total // 60
+        seconds=total % 60
+        
+        return f"{mins}:{seconds:02d}"
 
     def skipTrack(self):
         if self.curr != -1 and self.curr < self.size - 1:
