@@ -15,9 +15,11 @@ def loadLibrary():
 
 
 def showLibrary():
+    count = 1
     s= "<-----Music Library----->\n"
     for track in Library:
-        s += str(track) + "\n"
+        s += f"[{count}]{str(track)}\n"
+        count += 1
     print(s)
 
 loadLibrary()    

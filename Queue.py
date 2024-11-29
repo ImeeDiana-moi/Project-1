@@ -33,11 +33,10 @@ class Queue:
         self.queue[index]=song
         self.increaseSize()
     
-    def listEnqueue(self, list): 
-        """Add playlists to queue.
-        Reeceive playlists from converted list."""
-        for items in list:
-            self.enqueue(Track(items[1],items[2],items[3],items[4]))
+    def listEnqueue(self, tracks): 
+        """Add a list of Track objects to the queue."""
+        for track in tracks:
+            self.enqueue(track)
 
     def dequeue(self):
         """Remove Song from Queue"""
@@ -106,8 +105,6 @@ class Queue:
             self.curr = 0
         if self.curr < self.size and self.queue[self.curr] is not None:
             return(f"Currently Playing {'(Paused)' if self.state == False else ''}: \n\t{self.queue[self.curr]}\nNext track: \n\t{'No more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
-        # else:
-        #     print(f"No more tracks left.")
 
     def prevTrack(self):
         self.state = True
@@ -156,11 +153,11 @@ def loadTracksToQueue(queue):
     print(f"Tracks loaded into the queue from Library.csv.\n")
     
 
-p=PlayList()
-# print(p.loadplaylist('my playlist'))
+# p=PlayList()
+# # print(p.loadplaylist('my playlist'))
 
-# p.addtoPlaylist(p.loadplaylist('my playlist'))
-queue = Queue()
+# # p.addtoPlaylist(p.loadplaylist('my playlist'))
+# queue = Queue()
 # queue.listEnqueue(p.convert()) 
 
 # print(queue)
@@ -169,16 +166,16 @@ queue = Queue()
 # print(queue.player())
 
 #wala ni apil tanan diri
-song1 = Track("Nikes", "Frank Ocean", "Blonde", "5:14")
-song2 = Track("Heartless", "The Weeknd", "After Hours", "3:18")
-song3 = Track("Thinkin Bout You", "Frank Ocean", "Channel Orange", "3:21")
-queue.enqueue(song1)
-queue.enqueue(song2)
-queue.enqueue(song3)
-# queue.repeat = True
-# queue.shuffle = True
-queue.pauseTrack()
-queue.display()
+# song1 = Track("Nikes", "Frank Ocean", "Blonde", "5:14")
+# song2 = Track("Heartless", "The Weeknd", "After Hours", "3:18")
+# song3 = Track("Thinkin Bout You", "Frank Ocean", "Channel Orange", "3:21")
+# queue.enqueue(song1)
+# queue.enqueue(song2)
+# queue.enqueue(song3)
+# # queue.repeat = True
+# # queue.shuffle = True
+# queue.pauseTrack()
+# queue.display()
 
 # print(queue.getTotalDuration())
 

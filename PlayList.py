@@ -9,8 +9,8 @@ def loadplaylist():
             playlists.append(Track(items[0],items[1],items[2],items[3],items[4]))
 #Do not delete this code
 loadplaylist()
-for i in playlists:
-    print(i)
+# for i in playlists:
+#     print(i)
 
 
 class PlayList:
@@ -273,10 +273,10 @@ def showplaylists():
 
 # createplaylist("My Playlist")
 # showplaylists()
-pl=PlayList()
-print(pl)
-pl.getPlaylist("Imee")
-print(pl)
+# pl=PlayList()
+# print(pl)
+# pl.getPlaylist("Imee")
+# print(pl)
                 
 
 
