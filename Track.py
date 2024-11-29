@@ -4,11 +4,13 @@ from datetime import datetime
 class Track:
     """Receives information of a song, manage information"""
     
-    def __init__(self, title, artist, album, duration):
+    def __init__(self, title, artist, album, duration,playlist=None):
+        """Receive duration as seconds"""
         self.title = title
         self.artist = artist
         self.album = album
         self.duration = duration
+        self.playlist=playlist
     
     def gettitle(self):
         return self.title
