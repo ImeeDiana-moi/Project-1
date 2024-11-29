@@ -107,16 +107,17 @@ class Queue:
             else:
                 print("No more tracks left.")
                 self.curr = -1
+                return None
     
     def playTrack(self):
         if self.curr == -1:
             self.curr = 0
         if self.curr < self.size and self.queue[self.curr] is not None:
-            print(f"Now playing: {self.queue[self.curr]}")
+            print(f"\t{self.queue[self.curr]}")
             print()
-            print(f"Next track: {self.queue[self.curr+1]}")
-        else:
-            print(f"No more tracks left.")
+            print(f"Next track: {'\n\tNo more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
+        # else:
+        #     print(f"No more tracks left.")
 
     def prevTrack(self):
 
@@ -179,11 +180,13 @@ def loadTracksToQueue(queue):
 
 p=PlayList()
 # print(p.loadplaylist('my playlist'))
+
 # p.addtoPlaylist(p.loadplaylist('my playlist'))
 # queue = Queue()
 # queue.listEnqueue(p.convert()) 
+
+# print(queue)
 # queue.playTrack()
-# print(queue.player())
 # queue.setstate(1)
 # print(queue.player())
 

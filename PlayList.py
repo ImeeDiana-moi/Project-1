@@ -205,8 +205,9 @@ class PlayList:
                 iter+=1  
 
             plays+="<-----End----->"   
-            # print(plays)
+            print(plays)
             return all
+            
     def addPlaylist(self,name):
         with open("Library.csv",mode='r',newline='') as reader:
             read=csv.reader(reader)

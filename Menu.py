@@ -69,6 +69,7 @@ if __name__ == "__main__":
             while True:
                 # queue.playTrack()
                 print(queue)
+                queue.playTrack()
                 if queue.getSize() ==0:
                     break
                 printmenu(commands)
@@ -76,7 +77,9 @@ if __name__ == "__main__":
                 if choice == 1:  # Play Track
                     queue.playTrack()
                 elif choice == 2:
-                    queue.skipTrack()
+                    val=queue.skipTrack()
+                    if val ==None:
+                        break
                 elif choice == 3:
                     queue.prevTrack()
                 elif choice == 4:
@@ -90,100 +93,99 @@ if __name__ == "__main__":
                     break
             
         elif first == 2: # View Playlists
-            print()
-            all=playlist.listplaylists()
-            playlist.addtoPlaylist(all)
-            next=playlist.playlistbypage()
+            printmenu(menu1)
+            # playlist.listplaylists()
+            # playlist.addtoPlaylist()
+            # next=playlist.playlistbypage()
             try:
                 p=int(input("Enter Choice: "))
             except ValueError:
                 print("Invalid Input. Please Enter a number.")
                 continue
-            
-            if p == 12:
-                playlist.playlistbypage(next+1)
-                input("Saman")
 
-            # if p == 1: #show playlists
-            #     while True:
-            #         with open('Playlists.csv', mode='r',newline='') as reader:
-            #             read=csv.reader(reader)
-            #             count=0
-            #             for i in read:
-            #                 count+=1
-            #             if count == 0: #if no playlists
-            #                 print("\nYou have no Playlists!\n[1] Create New Playlist\n[0] Return")
-            #                 two=input("Enter Choice: ")
-            #                 if two == "1":
-            #                     name=input("\nEnter Playlist Name: ")
-            #                     choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
-            #                     if choose=='1':#choose from library
-            #                         playlist.addPlaylist(name)
-            #                     elif choose=='2': #add custom
-            #                         pass
+            if p == 1: #show playlists
+                while True:
+                    with open('Playlists.csv', mode='r',newline='') as reader:
+                        read=csv.reader(reader)
+                        count=0
+                        for i in read:
+                            count+=1
+                        if count == 0: #if no playlists
+                            print("\nYou have no Playlists!\n[1] Create New Playlist\n[0] Return")
+                            two=input("Enter Choice: ")
+                            if two == "1":
+                                name=input("\nEnter Playlist Name: ")
+                                choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
+                                if choose=='1':#choose from library
+                                    playlist.addPlaylist(name)
+                                elif choose=='2': #add custom
+                                    pass
 
-            #                     elif choose=='0':
-            #                         break
-            #                     else:
-            #                         continue
+                                elif choose=='0':
+                                    break
+                                else:
+                                    continue
                     
-            #                 elif two=='0':
-            #                     break
-            #                 else:
-            #                     print("Invalid Choice. Try Again!")
-            #                     continue
+                            elif two=='0':
+                                break
+                            else:
+                                print("Invalid Choice. Try Again!")
+                                continue
                         
-            #             elif count !=0: #If there are playlists
-            #                 print()
-            #                 lists=playlist.listplaylists()
-            #                 try:
-            #                     shu=int(input("[1] Choose Playlist\n[2] Create Another Playlist\n[0] Return\nEnter Choice: "))
+                        elif count !=0: #If there are playlists
+                            print()
+                            lists=playlist.listplaylists()
+                            try:
+                                shu=int(input("[1] Choose Playlist\n[2] Create Another Playlist\n[0] Return\nEnter Choice: "))
                             
-            #                 except ValueError:
-            #                     print("Invalid Input. Please Enter a number.")
-            #                     continue
-            #                 if shu==1:  
-            #                     chois=int(input("Enter Playlist Number: ")  )
-            #                     name=lists[chois-1]
-            #                     playlist.showplaylists(name,'cus')
-            #                     while True:
-            #                         play=int(input("[1] Play\n[2] Next\n[3] Prev\n[4] Repeat ON\n[5] Repeat OFF\n[0] Return\nEnter Choice: "))
-            #                         if play == 1:
-            #                             if queue.getSize()==0:
-            #                                 playlist.addtoPlaylist(playlist.loadplaylist(name))
-            #                                 queue.listEnqueue(playlist.convert())
-            #                                 queue.playTrack()
-            #                         elif play == 2:
-            #                             queue.skipTrack()
-            #                         elif play == 3:
-            #                             queue.prevTrack()
-            #                         elif play == 4:
-            #                             queue.repeat = True
-            #                         elif play == 5:
-            #                             queue.repeat = False
-            #                         elif play==0:
-            #                             break
+                            except ValueError:
+                                print("Invalid Input. Please Enter a number.")
+                                continue
+                            if shu==1:  
+                                chois=int(input("Enter Playlist Number: ")  )
+                                name=lists[chois-1]
+                                playlist.showplaylists(name,'cus')
+                                while True:
+                                    play=int(input("[1] Play\n[2] Next\n[3] Prev\n[4] Repeat ON\n[5] Repeat OFF\n[0] Return\nEnter Choice: "))
+                                    if play == 1:
+                                        if queue.getSize()==0:
+                                            playlist.addtoPlaylist(playlist.loadplaylist(name))
+                                            queue.listEnqueue(playlist.convert())
+                                            print(queue)
+                                            queue.playTrack()
+                                    elif play == 2:
+                                        queue.skipTrack()
+                                    elif play == 3:
+                                        queue.prevTrack()
+                                    elif play == 4:
+                                        queue.repeat = True
+                                    elif play == 5:
+                                        queue.repeat = False
+                                    elif play==0:
+                                        break
+                                    elif queue.skipTrack()==None:
+                                        break
 
-            #                 elif shu==2:
-            #                     name=input("\nEnter Playlist Name: ")
-            #                     choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
-            #                     if choose=='1':#choose from library
-            #                         playlist.addPlaylist(name)
+                            elif shu==2:
+                                name=input("\nEnter Playlist Name: ")
+                                choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
+                                if choose=='1':#choose from library
+                                    playlist.addPlaylist(name)
 
-            #                 elif shu==0:
-            #                     break
-            #                 else:
-            #                     continue
-            # #show premade playlists by artist 
+                            elif shu==0:
+                                break
+                            else:
+                                continue
+            #show premade playlists by artist 
              
-            # elif p ==2:
-            #     print(menu1[p])
-            #     # playlist.addtoPlaylist(playlist.getBy(menu1[p], 'ar'))
-            #     # queue.listEnqueue(playlist.convert())
+            elif p ==2:
+                print(menu1[p])
+                # playlist.addtoPlaylist(playlist.getBy(menu1[p], 'ar'))
+                # queue.listEnqueue(playlist.convert())
                 
                 
-            # else:
-            #     continue
+            else:
+                continue 
 
         elif first == 3: # Add Tracks
             while True:
@@ -229,11 +231,6 @@ if __name__ == "__main__":
                     break
                 else:
                     continue
-                    
-
-
-
-            
 
         elif first==0: # Quit
             break
