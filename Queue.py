@@ -97,15 +97,15 @@ class Queue:
             
     def toggleRepeat(self):
         self.repeat = True
+
+    def pauseTrack(self):
+        self.state = False
     
     def playTrack(self):
-        self.state = True
         if self.curr == -1:
             self.curr = 0
         if self.curr < self.size and self.queue[self.curr] is not None:
-            print(f"Currently Playing: \n\t{self.queue[self.curr]}")
-            print()
-            print(f"Next track: \n\t{'No more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
+            return(f"Currently Playing {'(Paused)' if self.state == False else ''}: \n\t{self.queue[self.curr]}\nNext track: \n\t{'No more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
         # else:
         #     print(f"No more tracks left.")
 
@@ -141,6 +141,8 @@ class Queue:
         print(f"Total Duration: {self.getTotalDuration()}\nShuffled: {'YES' if self.shuffle == True else 'NO'}\tRepeat: {'NO' if self.repeat == False else 'YES'}")
         print(f"{self.playTrack()}")
 
+    def clearQueue(self):
+        self.queue = []
 
 
 def loadTracksToQueue(queue):
@@ -173,8 +175,9 @@ song3 = Track("Thinkin Bout You", "Frank Ocean", "Channel Orange", "3:21")
 queue.enqueue(song1)
 queue.enqueue(song2)
 queue.enqueue(song3)
-queue.repeat = True
-queue.shuffle = True
+# queue.repeat = True
+# queue.shuffle = True
+queue.pauseTrack()
 queue.display()
 
 # print(queue.getTotalDuration())
