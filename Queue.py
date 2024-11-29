@@ -16,6 +16,7 @@ class Queue:
     def increaseSize(self):
         """Increase Queue Size"""
         self.size +=1
+
     def setstate(self,mode):
         if mode == 1:
             self.state=False
@@ -31,7 +32,6 @@ class Queue:
         index=self.size
         self.queue[index]=song
         self.increaseSize()
-
     
     def listEnqueue(self, list): 
         """Add playlists to queue.
@@ -89,7 +89,7 @@ class Queue:
         for items in self.queue:
             if items is None:
                 break
-            minutes, seconds = map(int, items.duration.split(":"))
+            minutes, seconds = map(int, items.duration.split(":")) 
             total_seconds += minutes * 60 + seconds
 
         total_minutes = total_seconds // 60

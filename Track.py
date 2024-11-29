@@ -17,7 +17,10 @@ class Track:
     def getalbum(self):
         return self.album
     def getduration(self):
-        return self.duration
+        # 208 seconds
+        minutes = self.duration // 60
+        seconds = self.duration % 60
+        return str(minutes) + ":" + str(seconds)
     
     def settitle(self, newtitle):
         self.title=newtitle
@@ -28,9 +31,14 @@ class Track:
     def setduration(self, newduration):
         self.duration=newduration
 
+    def converToCSV(self):
+        pass
+
     def details(self):
         return f"Title: {self.title}\nArtist: {self.artist}\nAlbum: {self.album}\nDuration: {self.duration}"
     
     def __str__(self):
         return f'{self.title}-{self.artist}({self.duration})'
     
+def addTrack():
+    pass

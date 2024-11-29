@@ -52,8 +52,26 @@ def printmenu(menu):
 line1 = "<---Welcome to Python Music Player--->"
 
 if __name__ == "__main__":
+    # Setting up library manager
     manager=LibraryManager
+    manager.loadLibrary()
+    # Setting up playlist???
+
+
+
+
+
+
+
+
+
+
+
+
+    
     playlist= PlayList()
+
+    # Setting up queue????
     queue=Queue()
     while True:
         # print(queue)
@@ -146,7 +164,7 @@ if __name__ == "__main__":
                                 name=lists[chois-1]
                                 playlist.showplaylists(name,'cus')
                                 while True:
-                                    play=int(input("[1] Play\n[2] Next\n[3] Prev\n[4] Repeat ON\n[5] Repeat OFF\n[0] Return\nEnter Choice: "))
+                                    play=int(input("[1] Play\n[2] Next\n[3] Prev\n[4] Repeat ON\n[5] Repeat OFF\n[6] Add Songs\n[0] Return\nEnter Choice: "))
                                     if play == 1:
                                         if queue.getSize()==0:
                                             playlist.addtoPlaylist(playlist.loadplaylist(name))
@@ -161,6 +179,17 @@ if __name__ == "__main__":
                                         queue.repeat = True
                                     elif play == 5:
                                         queue.repeat = False
+                                    elif play==6:
+                                        choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
+                                        if choose=='1':#choose from library
+                                            playlist.addPlaylist(name)
+
+                                        elif choose=='2':
+                                            while True:
+                                                manager.addtracktoplaylist(name)
+                                                sc=input("[1] Add Another\n[0] Exit")
+                                                if sc == '0':
+                                                    break
                                     elif play==0:
                                         break
                                     elif queue.skipTrack()==None:
@@ -171,6 +200,13 @@ if __name__ == "__main__":
                                 choose=input("\nAdd Songs to your Playlist\n[1] Choose from Library\n[2] Add Custom Track\n[0] Return")
                                 if choose=='1':#choose from library
                                     playlist.addPlaylist(name)
+
+                                elif choose=='2':
+                                    while True:
+                                        manager.addtracktoplaylist(name)
+                                        sc=input("[1] Add Another\n[0] Exit")
+                                        if sc == '0':
+                                            break
 
                             elif shu==0:
                                 break
