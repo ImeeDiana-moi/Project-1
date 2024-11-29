@@ -10,7 +10,7 @@ class Queue:
         self.size=0
         self.curr = 0
         self.repeat = False
-        self.shuffle= True
+        self.shuffle= False
         self.state=True
 
     def increaseSize(self):
@@ -49,14 +49,6 @@ class Queue:
             self.size-=1
             return item
         
-    # def addtoStorage(self, name): wala ni apil
-    #     """Adds the queue into the csv file
-    #     Arguments: Name(Set a custom name for the queue)"""
-    #     name=[[name]]
-    #     manage=open('Library.csv', 'a',newline='')
-    #     write= csv.writer(manage)
-    #     write.writerows(name,self.convert())
-
     def getContent(self):
         str=f""
         index=0
@@ -75,12 +67,6 @@ class Queue:
                 break
             s += [[items]]
         return s
-    
-    # def convertTime(self): wala ni apil
-    #     time=self.duration
-    #     minutes, seconds = map(int, time.split(":"))
-    #     total_seconds = minutes * 60 + seconds
-    #     return total_seconds
     
     def getTotalDuration(self):
         """Returns total duration of the Queue"""
@@ -108,19 +94,23 @@ class Queue:
                 print("No more tracks left.")
                 self.curr = -1
                 return None
+            
+    def toggleRepeat(self):
+        self.repeat = True
     
     def playTrack(self):
+        self.state = True
         if self.curr == -1:
             self.curr = 0
         if self.curr < self.size and self.queue[self.curr] is not None:
-            print(f"\t{self.queue[self.curr]}")
+            print(f"Currently Playing: \n\t{self.queue[self.curr]}")
             print()
-            print(f"Next track: {'\n\tNo more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
+            print(f"Next track: \n\t{'No more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
         # else:
         #     print(f"No more tracks left.")
 
     def prevTrack(self):
-
+        self.state = True
         if self.curr > 0:
             self.curr -= 1
             self.playTrack()
@@ -142,28 +132,14 @@ class Queue:
             print("<---------End of Queue--------->")
             
     def shuffleQueue(self):
+        self.shuffle = True
         tracks = self.queue[:self.size]
         random.shuffle(tracks)
         self.queue[:self.size] = tracks
 
-    def __str__(self):
-        if self.shuffle == True:
-            s='Yes'
-            self.shuffleQueue()
-        s='No'
-        if self.repeat==True:
-            r='Yes'
-        r='No'
-        if self.state == False:
-            st="(Paused)"
-        else:
-            st=''
-        if self.getSize() !=0:
-            q=f'Total Duration: {self.getTotalDuration()}\nShuffled: {s}\tRepeat: {r}\n\
-Tracks:\nCurrently Playing {st}:\n\n'
-            
-            return q
-        return 'There is nothing in Queue!\nSelect Playlist.\n'
+    def display(self):
+        print(f"Total Duration: {self.getTotalDuration()}\nShuffled: {'YES' if self.shuffle == True else 'NO'}\tRepeat: {'NO' if self.repeat == False else 'YES'}")
+        print(f"{self.playTrack()}")
 
 
 
@@ -182,7 +158,7 @@ p=PlayList()
 # print(p.loadplaylist('my playlist'))
 
 # p.addtoPlaylist(p.loadplaylist('my playlist'))
-# queue = Queue()
+queue = Queue()
 # queue.listEnqueue(p.convert()) 
 
 # print(queue)
@@ -191,13 +167,16 @@ p=PlayList()
 # print(queue.player())
 
 #wala ni apil tanan diri
-# song1 = Track("Nikes", "Frank Ocean", "Blonde", "5:14")
-# song2 = Track("Heartless", "The Weeknd", "After Hours", "3:18")
-# song3 = Track("Thinkin Bout You", "Frank Ocean", "Channel Orange", "3:21")
-# queue.enqueue(song1)
-# queue.enqueue(song2)
-# queue.enqueue(song3)
-# print(queue)
+song1 = Track("Nikes", "Frank Ocean", "Blonde", "5:14")
+song2 = Track("Heartless", "The Weeknd", "After Hours", "3:18")
+song3 = Track("Thinkin Bout You", "Frank Ocean", "Channel Orange", "3:21")
+queue.enqueue(song1)
+queue.enqueue(song2)
+queue.enqueue(song3)
+queue.repeat = True
+queue.shuffle = True
+queue.display()
+
 # print(queue.getTotalDuration())
 
 # queue.toggleRepeat()
