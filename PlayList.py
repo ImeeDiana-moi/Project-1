@@ -51,11 +51,11 @@ class PlayList:
         def get_track_title(track):
             return track.gettitle().lower()
         
-        sorted_tracks = sorted(self.storage0, key=get_track_title)
+        self.storage0 = sorted(self.storage0, key=get_track_title)
 
-        print("<----Playlist in Alphabetical Order---->")
-        for i, track in enumerate(sorted_tracks, start=1):
-            print(f"[{i}] {track}")
+        # print("<----Playlist in Alphabetical Order---->")
+        # for i, track in enumerate(sorted_tracks, start=1):
+        #     print(f"[{i}] {track}")
 
     def getPlaylist(self,playlist_name):
         """Gets tracks of playlist and add to self.storage"""
@@ -74,7 +74,7 @@ class PlayList:
         count = 1
         for items in playlists:
             if items.playlist == playlist_name:
-                print(f"[{count}]{str(items)}\n")
+                print(f"[{count}]{str(items)}")
                 count += 1
 
     def sendtoQueue(self,playlist_name):
@@ -181,8 +181,9 @@ def showplaylists():
 # showplaylists()
 pl=PlayList()
 # # print(pl)
-pl.getPlaylist("My Pla")
+pl.getPlaylist("My Playlist")
 pl.showPlaylistAlpha()
+print(pl)
 # print(pl.sendtoQueue())
 # q=Queue()
 # q.listEnqueue(pl.sendtoQueue())

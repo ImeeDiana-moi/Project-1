@@ -17,6 +17,7 @@ main={
 playlists = {
     1:"Play Playlist",
     2:"Add Tracks to Playlist",
+    3:"View Alphabetically",
     0:"Return"
 }
 commands={
@@ -32,6 +33,7 @@ library={
     1:"Play All",
     2:"Choose Track to Play",
     3:"Add Tracks to Library",
+    4:"View Alphabetically",
     0:"Return"
 }
 
@@ -73,7 +75,8 @@ if __name__ == "__main__":
                 elif ch.isdigit() and 1 <= int(ch) <= len(val):
                     selected_playlist = val[int(ch) - 1]  # Get the selected playlist name
                     plays.getPlaylist(selected_playlist)
-                    plays.showTracksInPlaylist(selected_playlist)
+                    print(plays)
+                    # plays.showTracksInPlaylist(selected_playlist)
 
                     while True:
                         printmenu(playlists)
@@ -104,6 +107,9 @@ if __name__ == "__main__":
                                 elif again.lower() != 'y':
                                     print("Invalid Choice!")
                                     break
+                        elif choicepl=='3':
+                            plays.showPlaylistAlpha()
+                            print(plays)
                         elif choicepl == "0":
                             break
                         else:
@@ -153,7 +159,8 @@ if __name__ == "__main__":
                         else:
                             print("Invalid Choice!")
                             break
-                
+                elif choicelib == '4':#Show Library alphabetically
+                    manager.AlphaLibrary(manager.Library)
                 elif choicelib == "0":
                     break
         elif choice1 == "3":
