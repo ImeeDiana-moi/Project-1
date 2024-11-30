@@ -88,7 +88,6 @@ class Queue:
                 self.playTrack()
             else:
                 print("No more tracks left.")
-                self.curr = -1
                 return None
             
     def toggleRepeat(self):
@@ -136,7 +135,7 @@ class Queue:
         print(f"{self.playTrack()}")
 
     def clearQueue(self):
-        self.queue = []
+        self.queue = [None]*self.size
 
 
 def loadTracksToQueue(queue):
