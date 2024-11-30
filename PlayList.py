@@ -67,11 +67,28 @@ class PlayList:
     
     def shuffle(self): #Bonus
         """Receives a list from getBy() methods and return the list in shuffled order"""
+        # import random
+        # if not self.storage0 or all(track is None for track in self.storage0):
+        #     print("The playlist is empty.")
+        #     return
+        # random.shuffle(self.storage0)
+        # print("Playlist shuffled successfully!") 
         pass    
     
     def showPlaylistAlpha(self):
         """Shows the Playist(Default: Alphabetical)"""
-        pass
+        if not self.storage0 or all(track is None for track in self.storage0):
+            print("The playlist is empty or invalid.")
+            return
+        def get_track_title(track):
+            return track.gettitle().lower()
+        
+        sorted_tracks = sorted(self.storage0, key=get_track_title)
+
+        print("<----Playlist in Alphabetical Order---->")
+        for i, track in enumerate(sorted_tracks, start=1):
+            print(f"[{i}] {track}")
+
     
     def convertTime(self):
         
@@ -165,3 +182,37 @@ loadplaylist()
 # print(pl.getTotalDuration())
                 
 
+
+# test shuffle
+
+playlist = PlayList(size=0)
+
+track1 = Track("Juno", "Sabrina Carpenter", "Album1", 180)
+track2 = Track("Good Graces", "Sabrina Carpenter", "Album2", 250)
+track3 = Track("Bed Chem", "Sabrina Carpenter", "Album3", 190)
+track4 = Track("Because I Liked a Boy", "Sabrina Carpenter", "Album4", 300)
+
+playlist.storage0 = [track1, track2, track3, track4]
+
+print("Original Order:")
+for i, track in enumerate(playlist.storage0, start=1):
+    print(f"[{i}] {track}")
+
+playlist.shuffle()
+
+print("\nShuffled Order:")
+for i, track in enumerate(playlist.storage0, start=1):
+    print(f"[{i}] {track}")
+
+print ()
+
+# test showPlaylistAlpha
+
+playlist = PlayList(size=0)
+track1 = Track("SZA", "artist1", "album1", 280)
+track2 = Track("Frank Ocean", "artist2", "album2", 600)
+track3 = Track("Lady Gaga", "artist3", "album3", 120)
+
+playlist.storage0 = [track1, track2, track3]
+
+playlist.showPlaylistAlpha()
