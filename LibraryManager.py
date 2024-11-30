@@ -12,6 +12,7 @@ def loadLibrary():
             trackobject = Track(track[0],track[1],track[2],track[3])
             Library.append(trackobject)
     reader.close()
+    
 def AlphaLibrary(Library):
     """Shows the Playist(Default: Alphabetical)"""
     if not Library or all(track is None for track in Library):
@@ -22,8 +23,11 @@ def AlphaLibrary(Library):
     
     Library = sorted(Library, key=get_track_title)
     print("<----Playlist in Alphabetical Order---->")
-    for i, track in enumerate(Library, start=1):
-        print(f"[{i}] {track}")
+    count = 1
+    for track in Library:
+        print(f"[{count}] {track}")
+        count += 1
+    print("<-------------------------------------->"+"\n")
 
 
 def showLibrary():

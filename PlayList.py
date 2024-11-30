@@ -33,10 +33,6 @@ class PlayList:
     def getSize(self):
         return self.size
 
-    def addtoPlaylist(self,list):
-        for items in list:
-            self.storage0+=[items]
-            self.increaseSize()
 
     def getPlaylistName(self):
         """Return name of current playlist"""
@@ -53,9 +49,6 @@ class PlayList:
         
         self.storage0 = sorted(self.storage0, key=get_track_title)
 
-        # print("<----Playlist in Alphabetical Order---->")
-        # for i, track in enumerate(sorted_tracks, start=1):
-        #     print(f"[{i}] {track}")
 
     def getPlaylist(self,playlist_name):
         """Gets tracks of playlist and add to self.storage"""
@@ -131,7 +124,7 @@ def show():
     w=csv.writer(e)
     count=1
     for tracks in LibraryManager.Library:
-        print(f"({count}) {tracks.title}")
+        print(f"[{count}] {tracks.title}")
         count+=1
     return w
         
@@ -152,11 +145,11 @@ def createplaylist(name):
         track=LibraryManager.Library[ind-1]
         w.writerows([[track.title,track.artist,track.album,track.duration,name]])
         print("Track added!")
-    
+            
 def showplaylists():
     """Prints Playlist names from Playlist csv>
     Return None if playlist.csv is empty"""
-    print("<-----Playlists----->")
+    print("\n"+"<-----Playlists----->")
     if len(playlists)==0:
         print("No Playlists. Create one.\n")
         return None
@@ -179,11 +172,11 @@ def showplaylists():
 
 # createplaylist("My Playlist")
 # showplaylists()
-pl=PlayList()
-# # print(pl)
-pl.getPlaylist("My Playlist")
-pl.showPlaylistAlpha()
-print(pl)
+# pl=PlayList()
+# # # print(pl)
+# pl.getPlaylist("My Playlist")
+# pl.showPlaylistAlpha()
+# print(pl)
 # print(pl.sendtoQueue())
 # q=Queue()
 # q.listEnqueue(pl.sendtoQueue())
