@@ -84,19 +84,18 @@ if __name__ == "__main__":
                                 plays.showTracksInPlaylist(selected_playlist)
                                 choice_track = input("Enter the track number to play or [0] to return: ")
 
-                                if choice_track == "0":  # Return to playlist menu
+                                if choice_track == "0":
                                     break
 
                                 if 1 <= int(choice_track) <= plays.getSize():
                                     selected_index = int(choice_track) - 1
-                                    # Enqueue all tracks starting from the selected track
                                     tracks_to_play = plays.storage0[selected_index:]
                                     queue.listEnqueue(tracks_to_play)
-                                    print(queue.playTrack())  # Play the first track
+                                    print(queue.playTrack()) 
                                     break
                                 else:
                                     print("Invalid choice. Please try again.")
-                        elif choicepl == "2":  # Add tracks to playlist
+                        elif choicepl == "2":
                             while True:
                                 manager.addtoLibrary()
                                 again = input("Would you like to add another one (y/n)? ")
@@ -105,7 +104,7 @@ if __name__ == "__main__":
                                 elif again.lower() != 'y':
                                     print("Invalid Choice!")
                                     break
-                        elif choicepl == "0":  # Return to playlist selection
+                        elif choicepl == "0":
                             break
                         else:
                             print("Invalid choice. Please try again.")
@@ -138,11 +137,10 @@ if __name__ == "__main__":
                         if choicelib2 == "0":
                             break
 
-                        if choicelib2.isdigit() and 1 <= int(choicelib2) <= len(manager.Library):
-                            selected_index = int(choicelib2) - 1  # Get the selected track index
-                            queue = Queue()
-                            queue.listEnqueue(manager.Library[selected_index:])# Enqueue the selected track and all subsequent tracks
-                            print(queue.playTrack())  # Play the selected track
+                        if 1 <= int(choicelib2) <= len(manager.Library):
+                            selected_index = int(choicelib2) - 1 
+                            queue.listEnqueue(manager.Library[selected_index:])
+                            print(queue.playTrack())
                             break
                 elif choicelib=='3':
                     while True:
