@@ -244,4 +244,4 @@ if __name__ == "__main__":
                     break
 
         elif choice1 == "0":
-            exit
+            break
