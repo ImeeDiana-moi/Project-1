@@ -51,34 +51,67 @@ if __name__ == "__main__":
         choice1 = input("Enter Choice: ")
         if choice1 == "1":
             val=showplaylists()
-            
             while True:
-                if val==None:
-                    dec=input("Would you like to create a playlist(y/n)?")
-                    if dec =='y':
-                        name=input("Enter Playlist Name:")
+                if val is None:
+                    dec = input("Would you like to create a playlist (y/n)? ")
+                    if dec.lower() == 'y':
+                        name = input("Enter Playlist Name: ")
                         createplaylist(name)
-
                         break
-                    elif dec=='n':
+                    elif dec.lower() == 'n':
                         break
                     else:
                         print("Invalid Choice!")
                         continue
-                ch=input("\nEnter playlist number or enter 'c' to create a new Playlist\n[0] Return\nEnter Choice: ")
-                cho=len(val)
-                if ch=='c':
-                    name=input("Enter Playlist Name:")
+                ch = input("\nEnter playlist number or enter 'c' to create a new Playlist\n[0] Return\nEnter Choice: ")
+                if ch == '0':  # Return to main menu
+                    break
+                elif ch.lower() == 'c':
+                    name = input("Enter Playlist Name: ")
                     createplaylist(name)
+                    break
+                elif ch.isdigit() and 1 <= int(ch) <= len(val):
+                    selected_playlist = val[int(ch) - 1]  # Get the selected playlist name
+                    plays.getPlaylist(selected_playlist)
+                    plays.showTracksInPlaylist(selected_playlist)
 
-                    break
-                
-                elif int(ch) in range(cho+1):
-                    plays.getPlaylist(val[int(ch)-1])
-                    print(plays)
-                elif ch =='0':
-                    break
-                # break
+                    while True:
+                        printmenu(playlists)
+                        choicepl = input("Enter Choice: ")
+
+                        if choicepl == "1":  # Play selected playlist
+                            while True:
+                                plays.showTracksInPlaylist(selected_playlist)
+                                choice_track = input("Enter the track number to play or [0] to return: ")
+
+                                if choice_track == "0":  # Return to playlist menu
+                                    break
+
+                                if 1 <= int(choice_track) <= plays.getSize():
+                                    selected_index = int(choice_track) - 1
+                                    # Enqueue all tracks starting from the selected track
+                                    tracks_to_play = plays.storage0[selected_index:]
+                                    queue.listEnqueue(tracks_to_play)
+                                    print(queue.playTrack())  # Play the first track
+                                    break
+                                else:
+                                    print("Invalid choice. Please try again.")
+                        elif choicepl == "2":  # Add tracks to playlist
+                            while True:
+                                manager.addtoLibrary()
+                                again = input("Would you like to add another one (y/n)? ")
+                                if again.lower() == 'n':
+                                    break
+                                elif again.lower() != 'y':
+                                    print("Invalid Choice!")
+                                    break
+                        elif choicepl == "0":  # Return to playlist selection
+                            break
+                        else:
+                            print("Invalid choice. Please try again.")
+                else:
+                    print("Invalid Choice! Please enter a valid playlist number.")
+
 
         elif choice1 == "2":
             manager.showLibrary()
@@ -168,4 +201,3 @@ if __name__ == "__main__":
 
         elif choice1 == "0":
             exit
-

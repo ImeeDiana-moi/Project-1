@@ -11,7 +11,6 @@ def loadplaylist():
         for items in read:
             playlists.append(Track(items[0],items[1],items[2],items[3],items[4]))
 #Do not delete this code
-loadplaylist()
 
 
 
@@ -45,13 +44,25 @@ class PlayList:
                 self.storage0.append(items)
             self.increaseSize()
 
-    def sendtoQueue(self):
-    
+    def showTracksInPlaylist(self,playlist_name):
+        """
+        Displays tracks in the current playlist.
+        """
+        if not self.storage0:
+            return "No tracks in the selected playlist."
+        count = 1
+        for items in playlists:
+            if items.playlist == playlist_name:
+                print(f"[{count}]{str(items)}\n")
+                count += 1
+
+    def sendtoQueue(self,playlist_name):
         s=[]
-        for items in self.storage0:
-            if items==None:
+        for items in playlists:
+            if items.playlist==None:
                 break
-            s.append(items)
+            if items.playlist == playlist_name:
+             s.append(items)
         return s
     
     def shuffle(self): #Bonus
@@ -135,7 +146,7 @@ def showplaylists():
         count+=1
     return l
 
-
+loadplaylist()
 
 
 
@@ -154,5 +165,3 @@ def showplaylists():
 # print(pl.getTotalDuration())
                 
 
-
-   
