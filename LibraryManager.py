@@ -76,8 +76,8 @@ loadLibrary()
 #     writer.writerows(data)
 
 
-showLibrary()
-AlphaLibrary(Library)
+# showLibrary()
+# AlphaLibrary(Library)
 # showLibrary()
 
 # addtoLibrary()
