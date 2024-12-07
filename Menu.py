@@ -42,8 +42,10 @@ menus = {
 
 def printmenu(menu: str) -> None:
     assert type(menu) == str, "Invalid menu given!"
-    for key, value in menus[menu].items():
-        print(f"[{key}] {value}")
+    i = 1
+    for m in menus[menu].values():
+        print("[{}] {}".format(i, m))
+        i += 1
 
 line1 = "<---Welcome to Python Music Player--->"
 
@@ -177,8 +179,10 @@ if __name__ == "__main__":
                         if not manager.Library:
                             print("Library is empty. Add tracks to the library first.")
                         else:
-                            # queue = Queue()
+                            queue.clearQueue()
                             queue.listEnqueue(manager.Library)
+                            queue.curr = 0 
+                            queue.state = True
                             print(queue.playTrack())
                     except Exception as e:
                         print(f"Error: {e}. The queue might be empty. Try adding tracks again.")
