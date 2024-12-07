@@ -12,10 +12,11 @@ menus = {
     },
 
     "playlists": {
-        1:"Play Playlist",
-        2:"Add Tracks to Playlist",
-        3:"View Alphabetically",
-        4:"Manage Queue",
+        1:"Play All",
+        2:"Choose Track to Play",
+        3:"Add Tracks to Playlist",
+        4:"View Alphabetically",
+        5:"Manage Queue",
         0:"Return"
     },
 
@@ -86,23 +87,26 @@ if __name__ == "__main__":
                         choicepl = input("Enter Choice: ")
 
                         if choicepl == "1":
-                            while True:
-                                plays.showTracksInPlaylist(selected_playlist)
-                                choice_track = input("Enter the track number to play or [0] to return: ")
-
-                                if choice_track == "0":
-                                    break
-
-                                if 1 <= int(choice_track) <= plays.getSize():
-                                    selected_index = int(choice_track) - 1
-                                    tracks_to_play = plays.storage0[selected_index:]
-                                    queue.listEnqueue(tracks_to_play)
-                                    print(queue.playTrack()) 
-                                    break
-                                else:
-                                    print("Invalid choice. Please try again.")
+                            
+                            plays.showTracksInPlaylist(selected_playlist)
+                            tracks_to_play = plays.storage0
+                            queue.listEnqueue(tracks_to_play)
+                            print(queue.playTrack())
 
                         elif choicepl == "2":
+                                    choice_track = input("Enter the track number to play or [0] to return: ")
+                                    if 1 <= int(choice_track) <= plays.getSize():
+                                        selected_index = int(choice_track) - 1
+                                        tracks_to_play = plays.storage0[selected_index:]
+                                        queue.listEnqueue(tracks_to_play)
+                                        print(queue.playTrack()) 
+                                        break
+                                    elif choice_track == "0":
+                                        break
+                                    else:
+                                        print("Invalid choice. Please try again.")
+
+                        elif choicepl == "3":
                             """"Add track to library and playlist"""
                             while True:
                                 dec = input("Would you like to add tracks to playlist (y/n)? ")
@@ -116,10 +120,10 @@ if __name__ == "__main__":
                                     print("Invalid Choice!")
                                     continue
 
-                        elif choicepl=='3':
+                        elif choicepl=="4":
                             plays.showPlaylistAlpha()
                             print(plays)
-                        elif choicepl == '4': #Manage Queue
+                        elif choicepl == "5": #Manage Queue
                             while True:
                                 if queue.getSize() == 0:
                                     print("The queue is empty. Add tracks before managing.")
@@ -163,6 +167,7 @@ if __name__ == "__main__":
                             print("Invalid choice. Please try again.")
                 else:
                     print("Invalid Choice! Please enter a valid playlist number.")
+
         elif choice1 == "2":
             manager.showLibrary()
             while True:
