@@ -29,8 +29,10 @@ class Queue:
 
     def enqueue(self,song:Track):
         """Add song to Queue"""
-        index=self.size
-        self.queue[index]=song
+        if self.size >= len(self.queue):
+            self.queue.append(song)  # Dynamically grow the queue
+        else:
+            self.queue[self.size] = song
         self.increaseSize()
     
     def listEnqueue(self, receive): 
@@ -135,7 +137,12 @@ class Queue:
         print(f"{self.playTrack()}")
 
     def clearQueue(self):
-        self.queue = [None]*self.size
+        self.queue = [None] * self.size 
+        self.size = 0
+        self.curr = 0 
+        self.state = True 
+        self.repeat = False
+        self.shuffle = False
 
 
 def loadTracksToQueue(queue):
