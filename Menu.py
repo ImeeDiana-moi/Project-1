@@ -156,8 +156,6 @@ if __name__ == "__main__":
                         print("Invalid choice. Please try again.")
             else:
                 print("Invalid Choice! Please enter a valid playlist number.")
-
-
         elif choice1 == "2":
             manager.showLibrary()
             while True:
@@ -245,3 +243,5 @@ if __name__ == "__main__":
 
         elif choice1 == "0":
             break
+        else: 
+            continue

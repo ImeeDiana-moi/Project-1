@@ -40,7 +40,9 @@ class Track:
         return f"Title: {self.title}\nArtist: {self.artist}\nAlbum: {self.album}\nDuration: {self.duration}"
     
     def __str__(self):
-        return f'{self.title}-{self.artist}({self.getduration()})'
+        if self.playlist=="None":
+            self.playlist='Unknown Playlist'
+        return f'{self.title}-{self.artist}({self.getduration()})-{self.playlist}'
     
 def addTrack():
     pass

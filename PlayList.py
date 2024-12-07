@@ -3,23 +3,6 @@ from Track import Track
 import LibraryManager
 from Queue import Queue
 
-
-playlists=[]
-
-def loadplaylist():
-    with open('Playlists.csv',mode='r',newline='') as playlist:
-        read=csv.reader(playlist)
-        check=[]
-        for items in read:
-            if [items[0],items[4]] not in check:
-                check.append([items[0],items[4]])
-                playlists.append(Track(items[0],items[1],items[2],items[3],items[4]))
-    playlist.close()
-
-#Do not delete this code
-loadplaylist()
-
-
 class PlayList:
     
     def __init__(self, size: int = 0):
@@ -52,7 +35,7 @@ class PlayList:
 
     def getPlaylist(self,playlist_name):
         """Gets tracks of playlist and add to self.storage"""
-        for items in playlists:
+        for items in LibraryManager.Library:
             if items.playlist == playlist_name:
                 if items not in self.storage0:
                     self.storage0.append(items)
@@ -65,14 +48,14 @@ class PlayList:
         if not self.storage0:
             return "No tracks in the selected playlist."
         count = 1
-        for items in playlists:
+        for items in LibraryManager.Library:
             if items.playlist == playlist_name:
                 print(f"[{count}]{str(items)}")
                 count += 1
 
     def sendtoQueue(self,playlist_name):
         s=[]
-        for items in playlists:
+        for items in LibraryManager.Library:
             if items.playlist==None:
                 break
             if items.playlist == playlist_name:
@@ -88,10 +71,7 @@ class PlayList:
         # random.shuffle(self.storage0)
         # print("Playlist shuffled successfully!") 
         pass    
-    
-    
 
-    
     def convertTime(self):
         
         time=self.duration
@@ -150,12 +130,12 @@ def showplaylists():
     """Prints Playlist names from Playlist csv>
     Return None if playlist.csv is empty"""
     print("\n"+"<-----Playlists----->")
-    if len(playlists)==0:
+    if len(LibraryManager.Library)==0:
         print("No Playlists. Create one.\n")
         return None
     count=1
     l=[]
-    for items in playlists:
+    for items in LibraryManager.Library:
         if items.playlist not in l:
             l.append(items.playlist)
     for items in l:

@@ -5,11 +5,12 @@ Library = []
 
 
 def loadLibrary():
+    """Gets tracks from Library.csv and append to Library"""
     with open("Library.csv", mode = "r", newline="") as reader:
         read = csv.reader(reader)
 
         for track in read:
-            trackobject = Track(track[0],track[1],track[2],track[3])
+            trackobject = Track(track[0],track[1],track[2],track[3],track[4])
             Library.append(trackobject)
     reader.close()
     
@@ -52,6 +53,10 @@ def addtoLibrary():
     print("Succesfully added track.")
 
 loadLibrary()    
+
+
+for i in Library:
+    print(i)
     # with open("Library.csv", mode='r', newline='') as reader:
     #     read=csv.reader(reader)
     #     # t = Track()
