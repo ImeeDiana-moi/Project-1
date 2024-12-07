@@ -2,8 +2,6 @@ import csv
 from Track import Track
 
 Library = []
-
-
 def loadLibrary():
     """Gets tracks from Library.csv and append to Library"""
     with open("Library.csv", mode = "r", newline="") as reader:
@@ -12,6 +10,7 @@ def loadLibrary():
         for track in read:
             trackobject = Track(track[0],track[1],track[2],track[3],track[4])
             Library.append(trackobject)
+                
     reader.close()
     
 def AlphaLibrary(Library):
@@ -97,7 +96,24 @@ def showplaylists():
         count+=1
     return l
 
-loadLibrary()    
+def deletePlaylist(name):
+
+    file_path = "Library.csv"
+    with open(file_path, "r") as file:
+        reader = csv.reader(file)
+        rows = list(reader)
+        filtered_rows = [row for row in rows if row[4] != name]
+        with open(file_path, "w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerows(filtered_rows)
+
+
+
+
+
+
+
+# loadLibrary()    
 
 
 # for i in Library:

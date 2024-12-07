@@ -51,11 +51,14 @@ if __name__ == "__main__":
     manager=LibraryManager
     plays=PlayList()
     queue = Queue()
+    
     while True:
+        manager.loadLibrary()
         printmenu("main")
         choice1 = input("Enter Choice: ")
         if choice1 == "1":
             while True:
+                manager.loadLibrary()
                 val=manager.showplaylists()
                 if val is None:
                     dec = input("Would you like to create a playlist (y/n)? ")
@@ -81,7 +84,10 @@ if __name__ == "__main__":
                     print(plays)
 
                     while True:
+                        
+                        print(plays)
                         printmenu("playlists")
+                        print("[d] Delete Playlist")
                         choicepl = input("Enter Choice: ")
 
                         if choicepl == "1":
@@ -159,13 +165,18 @@ if __name__ == "__main__":
                                     print("Queue is not initialized!")
                                 except Exception as e:
                                     print(f"The Queue is Empty!")
+
+                        elif choicepl == "d":
+                            name=plays.getPlaylistName()
+                            
+                            manager.deletePlaylist(name)
+                            break
                         elif choicepl == "0":
                             break
                         else:
                             print("Invalid choice. Please try again.")
                 else:
                     print("Invalid Choice! Please enter a valid playlist number.")
-
         elif choice1 == "2":
             manager.showLibrary()
             while True:
