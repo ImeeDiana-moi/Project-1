@@ -4,41 +4,47 @@ from PlayList import PlayList,showplaylists,createplaylist
 from Track import Track
 import LibraryManager
 
-main={
-    1:"Playlists",
-    2:"Music Library",
-    0:"Quit"
+menus = {
+    "main": {
+        1:"Playlists",
+        2:"Music Library",
+        0:"Quit"
+    },
+
+    "playlists": {
+        1:"Play Playlist",
+        2:"Add Tracks to Playlist",
+        3:"View Alphabetically",
+        4:"Manage Queue",
+        0:"Return"
+    },
+
+    "commands": {
+        1:"Next",
+        2:"Previous",
+        3:"Turn ON Repeat",
+        4:"Turn OFF Repeat",
+        5:"Shuffle Queue",
+        6:"Clear Queue",
+        0:"Return"
+    },
+
+    "library": {
+        1:"Play All",
+        2:"Choose Track to Play",
+        3:"Add Tracks to Library",
+        4:"View Alphabetically",
+        5:"Manage Queue",
+        0:"Return"
+    }
 }
 
-playlists = {
-    1:"Play Playlist",
-    2:"Add Tracks to Playlist",
-    3:"View Alphabetically",
-    4:"Manage Queue",
-    0:"Return"
-}
-commands={
-    1:"Next",
-    2:"Previous",
-    3:"Turn ON Repeat",
-    4:"Turn OFF Repeat",
-    5:"Shuffle Queue",
-    6:"Clear Queue",
-    0:"Return"
-}
-library={
-    1:"Play All",
-    2:"Choose Track to Play",
-    3:"Add Tracks to Library",
-    4:"View Alphabetically",
-    5:"Manage Queue",
-    0:"Return"
-}
-
-def printmenu(menu):
-    for items in menu:
-        print(f"[{items}] {menu[items]}")
-
+def printmenu(menu: str) -> None:
+    assert type(menu) == str, "Invalid menu given!"
+    i = 1
+    for m in menus[menu].values():
+        print("[{}] {}".format(i, m))
+        i += 1
 
 line1 = "<---Welcome to Python Music Player--->"
 
@@ -47,7 +53,7 @@ if __name__ == "__main__":
     plays=PlayList()
     queue = Queue()
     while True:
-        printmenu(main)
+        printmenu("main")
         choice1 = input("Enter Choice: ")
         if choice1 == "1":
             while True:
@@ -76,7 +82,7 @@ if __name__ == "__main__":
                     print(plays)
 
                     while True:
-                        printmenu(playlists)
+                        printmenu("playlists")
                         choicepl = input("Enter Choice: ")
 
                         if choicepl == "1":
@@ -118,7 +124,7 @@ if __name__ == "__main__":
                                 if queue.getSize() == 0:
                                     print("The queue is empty. Add tracks before managing.")
                                     break
-                                printmenu(commands)
+                                printmenu("commands")
                                 choicelib1 = input("Enter Choice: ")
                                 try:
                                     if choicelib1 == "1":  # Next track
@@ -160,7 +166,7 @@ if __name__ == "__main__":
         elif choice1 == "2":
             manager.showLibrary()
             while True:
-                printmenu(library)
+                printmenu("library")
                 choicelib = input("Enter Choice: ")
                 if choicelib == "1":
                     """Play All"""
@@ -205,7 +211,7 @@ if __name__ == "__main__":
                         if queue.getSize() == 0:
                             print("The queue is empty. Add tracks before managing.")
                             break
-                        printmenu(commands)
+                        printmenu("commands")
                         choicelib1 = input("Enter Choice: ")
                         try:
                             if choicelib1 == "1":  # Next track
