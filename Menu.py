@@ -58,7 +58,7 @@ if __name__ == "__main__":
         choice1 = input("Enter Choice: ")
         if choice1 == "1":
             while True:
-                manager.loadLibrary()
+                #manager.loadLibrary()
                 val=manager.showplaylists()
                 if val is None:
                     dec = input("Would you like to create a playlist (y/n)? ")
