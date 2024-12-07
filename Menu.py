@@ -1,6 +1,6 @@
 import csv
 from Queue import Queue, loadTracksToQueue
-from PlayList import PlayList,showplaylists,createplaylist,loadplaylist
+from PlayList import PlayList,showplaylists,createplaylist
 from Track import Track
 import LibraryManager
 

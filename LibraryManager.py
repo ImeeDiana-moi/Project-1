@@ -55,8 +55,8 @@ def addtoLibrary():
 loadLibrary()    
 
 
-for i in Library:
-    print(i)
+# for i in Library:
+#     print(i)
     # with open("Library.csv", mode='r', newline='') as reader:
     #     read=csv.reader(reader)
     #     # t = Track()
