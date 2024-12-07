@@ -1,5 +1,6 @@
+
 import csv
-from Queue import Queue, loadTracksToQueue
+from Queue import Queue
 from PlayList import PlayList
 from Track import Track
 import LibraryManager
@@ -188,8 +189,10 @@ if __name__ == "__main__":
                         if not manager.Library:
                             print("Library is empty. Add tracks to the library first.")
                         else:
-                            # queue = Queue()
+                            queue.clearQueue()
                             queue.listEnqueue(manager.Library)
+                            queue.curr = 0 
+                            queue.state = True
                             print(queue.playTrack())
                     except Exception as e:
                         print(f"Error: {e}. The queue might be empty. Try adding tracks again.")

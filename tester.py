@@ -149,10 +149,10 @@ data=[["title","artist","album","duration"]]
 
 # PlaylistName,title,artist,album,duration
 
-with open("Playlists.csv", mode="r", newline='') as reader:
-    read=csv.reader(reader)
-    for items in read:
-        print(f"Items: {items[0]},{items[1]},{items[2]},{items[3]}")
+# with open("Playlists.csv", mode="r", newline='') as reader:
+#     read=csv.reader(reader)
+#     for items in read:
+#         print(f"Items: {items[0]},{items[1]},{items[2]},{items[3]}")
 
    # TotalDuration = 0
         # for track in self.storage0:
@@ -395,3 +395,100 @@ with open("Playlists.csv", mode="r", newline='') as reader:
     #                 plays+=f"\nTitle: {items[1]}\nArtist: {items[2]}\nAlbum: {items[3]}\nDuration: {items[4]}"
                 
     #         return plays
+
+
+
+#     def paginate_items(items, max_per_page=10):
+#         """
+#         Function to paginate items with navigation between pages.
+
+#         Args:
+#             items (list): List of items to paginate.
+#             max_per_page (int): Maximum number of items per page.
+
+#         Returns:
+#             None
+#         """
+#         total_pages = (len(items) + max_per_page - 1) // max_per_page  # Calculate total pages
+#         current_page = 1
+
+#         while True:
+#             # Calculate start and end indices for the current page
+#             start_idx = (current_page - 1) * max_per_page
+#             end_idx = start_idx + max_per_page
+
+#             # Get items for the current page
+#             page_items = items[start_idx:end_idx]
+
+#             # Display the items
+#             for idx, item in enumerate(page_items, start=start_idx + 1):
+#                 print(f"{idx} {item}")
+#             print(f"Page {current_page} of {total_pages}")
+
+#             # Navigation prompt
+#             print("\nNavigate: [n]ext page, [p]revious page, [q]uit")
+#             choice = input("Enter your choice: ").strip().lower()
+
+#             if choice == "n" and current_page < total_pages:
+#                 current_page += 1
+#             elif choice == "p" and current_page > 1:
+#                 current_page -= 1
+#             elif choice == "q":
+#                 print("Exiting pagination.")
+#                 break
+#             else:
+#                 print("Invalid choice or no more pages in that direction.\n")
+
+# # Example usage
+# items = [f"Item {i}" for i in range(1, 101)]  # Create a list of items
+# paginate_items(items)
+import LibraryManager
+manager=LibraryManager
+# manager.loadLibrary()
+list=manager.Library
+def paginate_items(items, max_per_page=10):
+    """
+    Function to paginate items with navigation between pages.
+
+    Args:
+        items (list): List of items to paginate.
+        max_per_page (int): Maximum number of items per page.
+
+    Returns:
+        None
+    """
+    total_pages = (len(items) + max_per_page - 1) // max_per_page  # Calculate total pages
+    current_page = 1
+
+    while True:
+        # Calculate start and end indices for the current page
+        start_idx = (current_page - 1) * max_per_page
+        end_idx = start_idx + max_per_page
+
+        # Get items for the current page
+        page_items = items[start_idx:end_idx]
+
+        # Display the items without using enumerate
+        index = start_idx + 1
+        for item in page_items:
+            print(f"{index} {item}")
+            index += 1
+        print(f"Page {current_page} of {total_pages}")
+
+        # Navigation prompt
+        print("\nNavigate: [n]ext page, [p]revious page, [q]uit")
+        choice = input("Enter your choice: ").strip().lower()
+
+        if choice == "n" and current_page < total_pages:
+            current_page += 1
+        elif choice == "p" and current_page > 1:
+            current_page -= 1
+        elif choice == "q":
+            print("Exiting pagination.")
+            break
+        else:
+            print("Invalid choice or no more pages in that direction.\n")
+
+# Example usage
+# items = [f"{i}" for i in list]  # Create a list of items
+# paginate_items(list)
