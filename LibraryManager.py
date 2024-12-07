@@ -52,6 +52,51 @@ def addtoLibrary():
     manage.close()
     print("Succesfully added track.")
 
+def show():
+    e=open('Library.csv', 'a',newline='')
+    w=csv.writer(e)
+    count=1
+    for tracks in Library:
+        print(f"[{count}] {tracks.title}")
+        count+=1
+    return w
+        
+def createplaylist(name):
+    """Receives a name to create a playlist and choose tracks from library only"""
+    w=show()
+    while True:
+        try:
+            ind=int(input("Choose Tracks(0 to exit): "))
+        except:
+            print("Enter valid Choice.")
+        
+        if ind == 0:
+            break
+        elif ind > len(Library):
+            print("Index out of range.")
+            continue
+        track=Library[ind-1]
+        w.writerows([[track.title,track.artist,track.album,track.duration,name]])
+        print("Track added!")
+            
+def showplaylists():
+    """Prints Playlist names from Playlist csv>
+    Return None if playlist.csv is empty"""
+    print("\n"+"<-----Playlists----->")
+    if len(Library)==0:
+        print("No Playlists. Create one.\n")
+        return None
+    count=1
+    l=[]
+    for items in Library:
+        if items.playlist not in l:
+            if items.playlist != "None":
+                l.append(items.playlist)
+    for items in l:
+        print(f"({count}) {items}")
+        count+=1
+    return l
+
 loadLibrary()    
 
 

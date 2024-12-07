@@ -1,6 +1,6 @@
 import csv
 from Queue import Queue, loadTracksToQueue
-from PlayList import PlayList,showplaylists,createplaylist
+from PlayList import PlayList
 from Track import Track
 import LibraryManager
 
@@ -57,12 +57,12 @@ if __name__ == "__main__":
         choice1 = input("Enter Choice: ")
         if choice1 == "1":
             while True:
-                val=showplaylists()
+                val=manager.showplaylists()
                 if val is None:
                     dec = input("Would you like to create a playlist (y/n)? ")
                     if dec.lower() == 'y':
                         name = input("Enter Playlist Name: ")
-                        createplaylist(name)
+                        manager.createplaylist(name)
                         break
                     elif dec.lower() == 'n':
                         break
@@ -74,7 +74,7 @@ if __name__ == "__main__":
                     break
                 elif ch.lower() == 'c':
                     name = input("Enter Playlist Name: ")
-                    createplaylist(name)
+                    manager.createplaylist(name)
                     break
                 elif 1 <= int(ch) <= len(val):
                     selected_playlist = val[int(ch) - 1]
@@ -108,7 +108,7 @@ if __name__ == "__main__":
                                 dec = input("Would you like to add tracks to playlist (y/n)? ")
                                 if dec.lower() == 'y':
                                     name = plays.getPlaylistName()
-                                    createplaylist(name) #utilize createplaylist method to add tracks to the playlist
+                                    manager.createplaylist(name) #utilize createplaylist method to add tracks to the playlist
                                     break
                                 elif dec.lower() == 'n':
                                     break
