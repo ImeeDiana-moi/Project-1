@@ -42,10 +42,8 @@ menus = {
 
 def printmenu(menu: str) -> None:
     assert type(menu) == str, "Invalid menu given!"
-    i = 1
-    for m in menus[menu].values():
-        print("[{}] {}".format(i, m))
-        i += 1
+    for key, value in menus[menu].items():
+        print(f"[{key}] {value}")
 
 line1 = "<---Welcome to Python Music Player--->"
 
