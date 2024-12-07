@@ -108,7 +108,42 @@ def deletePlaylist(name):
             writer.writerows(filtered_rows)
 
 
+def paginate_items(items, max_per_page=10):
+    """
+    Function to paginate items with navigation between pages.
 
+    Args:
+        items (list): List of items to paginate.
+        max_per_page (int): Maximum number of items per page.
+
+    Returns:
+        None
+    """
+    total_pages = (len(items) + max_per_page - 1) // max_per_page  
+    current_page = 1
+
+    while True:
+        start_idx = (current_page - 1) * max_per_page
+        end_idx = start_idx + max_per_page
+
+        page_items = items[start_idx:end_idx]
+
+        index = start_idx + 1
+        for item in page_items:
+            print(f"{index} {item}")
+            index += 1
+        print(f"Page {current_page} of {total_pages}")
+        print("\nNavigate: [n]ext page, [p]revious page, [q]uit")
+        choice = input("Enter your choice: ").strip().lower()
+        if choice == "n" and current_page < total_pages:
+            current_page += 1
+        elif choice == "p" and current_page > 1:
+            current_page -= 1
+        elif choice == "q":
+            print("Exiting pagination.")
+            break
+        else:
+            print("Invalid choice or no more pages in that direction.\n")
 
 
 

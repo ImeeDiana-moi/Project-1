@@ -2,7 +2,7 @@ import csv
 from Track import Track
 import LibraryManager
 from Queue import Queue
-
+LibraryManager.loadLibrary()
 class PlayList:
     
     def __init__(self, size: int = 0):
@@ -91,15 +91,20 @@ class PlayList:
         return f"{mins}:{seconds:02d}"
             
     def __str__(self):
-        """Returns Details of the current playlist"""
-        if self.getSize()==0:
-            return 'No playlist selected'
-        s=f"Playlist Name: {self.getPlaylistName()}\nTotal Duration: {self.getTotalDuration()}\nTracks:\n"
-        for i in self.storage0:
-            s+=f'\t{i}\n'
-        return s
+        """Returns Details of the current playlist
+        Should be in pagination format"""
+        res= LibraryManager.paginate_items(self.storage0)
+        return res
+        # if self.getSize()==0:
+        #     return 'No playlist selected'
+        # s=f"Playlist Name: {self.getPlaylistName()}\nTotal Duration: {self.getTotalDuration()}\nTracks:\n"
+        # for i in self.storage0:
+        #     s+=f'\t{i}\n'
+        # return s
     
-
+pl=PlayList()
+pl.getPlaylist("None")
+print(pl)
 
 
 
