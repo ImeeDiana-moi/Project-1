@@ -137,7 +137,8 @@ def showplaylists():
     l=[]
     for items in LibraryManager.Library:
         if items.playlist not in l:
-            l.append(items.playlist)
+            if items.playlist != "None":
+                l.append(items.playlist)
     for items in l:
         print(f"({count}) {items}")
         count+=1
