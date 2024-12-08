@@ -22,8 +22,9 @@ class Track:
         # 208 seconds
         minutes = int(self.duration) // 60
         seconds = int(self.duration) % 60
-        return str(minutes) + ":" + str(seconds)
-    
+        return f'{minutes}:{seconds:02d}'
+    def getPlaylist(self):
+        return str(self.playlist)    
     def settitle(self, newtitle):
         self.title=newtitle
     def setartist(self, newartist):
