@@ -138,7 +138,7 @@ class Queue:
         if self.curr == -1:
             self.curr = 0
         if self.curr < self.size and self.queue[self.curr] is not None:
-            return(f"\nCurrently Playing {'(Paused)' if self.state == False else ''}: \n\t{self.queue[self.curr]}\nNext track: \n\t{'No more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
+            return(f"\nCurrently Playing {'(Paused)' if self.state == False else ''}{'(Repeat ON)' if self.repeat == True else '(Repeat OFF)'}: \n\t{self.queue[self.curr]}\nNext track: \n\t{'No more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
 
     def prevTrack(self):
         self.state = True
