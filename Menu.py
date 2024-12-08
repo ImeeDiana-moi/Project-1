@@ -97,8 +97,9 @@ if __name__ == "__main__":
     plays=PlayList()
     queue = Queue()
     queue.loadQueue()
+    manager.loadLibrary()
     while True:
-        manager.loadLibrary()
+        
         printmenu("main")
         choice1 = input("Enter Choice: ")
         if choice1 == "1":
