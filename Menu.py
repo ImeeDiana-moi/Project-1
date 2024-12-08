@@ -79,6 +79,7 @@ def QueueCommands():
             elif choicelib1 == "6":  # Clear Queue
                 queue.clearQueue()
                 print("Queue cleared.")
+                break
             elif choicelib1 == "0":  # Return
                 break
         except NameError:
@@ -139,6 +140,7 @@ if __name__ == "__main__":
                                         queue.listEnqueue(tracks_to_play)
                                         print(queue.playTrack()) 
                                         QueueCommands()
+                                        break
                                     elif choice_track == "0":
                                         break
                                     else:
