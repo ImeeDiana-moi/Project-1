@@ -112,28 +112,28 @@ p1=PlayList()
 # manage.close()
 
 
-def addtoLibrary():
+# def addtoLibrary():
     
-    title=input("Enter Title: ")
-    artist=input("Enter Artist: ")
-    album=input("Enter Album: ")
-    duration=input("Enter Duration: ")
-    data=[[title,artist,album,duration]]
-    with open("Storage.csv", mode="r",newline='') as reader:
-        read=csv.reader(reader)
-        for i in read:
-            if data[0][0] in i[0]:
-                print('Naa na')
-                break
-            else:
-                manage=open('Storage.csv', 'a',newline='')
-                write=csv.writer(manage)
-                write.writerows(data) 
-                manage.close()
-                break
+#     title=input("Enter Title: ")
+#     artist=input("Enter Artist: ")
+#     album=input("Enter Album: ")
+#     duration=input("Enter Duration: ")
+#     data=[[title,artist,album,duration]]
+#     with open("Storage.csv", mode="r",newline='') as reader:
+#         read=csv.reader(reader)
+#         for i in read:
+#             if data[0][0] in i[0]:
+#                 print('Naa na')
+#                 break
+#             else:
+#                 manage=open('Storage.csv', 'a',newline='')
+#                 write=csv.writer(manage)
+#                 write.writerows(data) 
+#                 manage.close()
+#                 break
     
     
-data=[["title","artist","album","duration"]]
+# data=[["title","artist","album","duration"]]
 # with open("Storage.csv", mode="r",newline='') as reader:
 #     read=csv.reader(reader)
     
@@ -442,53 +442,70 @@ data=[["title","artist","album","duration"]]
 # # Example usage
 # items = [f"Item {i}" for i in range(1, 101)]  # Create a list of items
 # paginate_items(items)
-import LibraryManager
-manager=LibraryManager
-# manager.loadLibrary()
-list=manager.Library
-def paginate_items(items, max_per_page=10):
-    """
-    Function to paginate items with navigation between pages.
+# import LibraryManager
+# manager=LibraryManager
+# # manager.loadLibrary()
+# list=manager.Library
+# def paginate_items(items, max_per_page=10):
+#     """
+#     Function to paginate items with navigation between pages.
 
-    Args:
-        items (list): List of items to paginate.
-        max_per_page (int): Maximum number of items per page.
+#     Args:
+#         items (list): List of items to paginate.
+#         max_per_page (int): Maximum number of items per page.
 
-    Returns:
-        None
-    """
-    total_pages = (len(items) + max_per_page - 1) // max_per_page  # Calculate total pages
-    current_page = 1
+#     Returns:
+#         None
+#     """
+#     total_pages = (len(items) + max_per_page - 1) // max_per_page  # Calculate total pages
+#     current_page = 1
 
-    while True:
-        # Calculate start and end indices for the current page
-        start_idx = (current_page - 1) * max_per_page
-        end_idx = start_idx + max_per_page
+#     while True:
+#         # Calculate start and end indices for the current page
+#         start_idx = (current_page - 1) * max_per_page
+#         end_idx = start_idx + max_per_page
 
-        # Get items for the current page
-        page_items = items[start_idx:end_idx]
+#         # Get items for the current page
+#         page_items = items[start_idx:end_idx]
 
-        # Display the items without using enumerate
-        index = start_idx + 1
-        for item in page_items:
-            print(f"{index} {item}")
-            index += 1
-        print(f"Page {current_page} of {total_pages}")
+#         # Display the items without using enumerate
+#         index = start_idx + 1
+#         for item in page_items:
+#             print(f"{index} {item}")
+#             index += 1
+#         print(f"Page {current_page} of {total_pages}")
 
-        # Navigation prompt
-        print("\nNavigate: [n]ext page, [p]revious page, [q]uit")
-        choice = input("Enter your choice: ").strip().lower()
+#         # Navigation prompt
+#         print("\nNavigate: [n]ext page, [p]revious page, [q]uit")
+#         choice = input("Enter your choice: ").strip().lower()
 
-        if choice == "n" and current_page < total_pages:
-            current_page += 1
-        elif choice == "p" and current_page > 1:
-            current_page -= 1
-        elif choice == "q":
-            print("Exiting pagination.")
-            break
-        else:
-            print("Invalid choice or no more pages in that direction.\n")
+#         if choice == "n" and current_page < total_pages:
+#             current_page += 1
+#         elif choice == "p" and current_page > 1:
+#             current_page -= 1
+#         elif choice == "q":
+#             print("Exiting pagination.")
+#             break
+#         else:
+#             print("Invalid choice or no more pages in that direction.\n")
 
 # Example usage
 # items = [f"{i}" for i in list]  # Create a list of items
 # paginate_items(list)
+
+# def shuffle_list():
+#     # Make a copy to avoid modifying the original list
+#     shuffled = [:]
+#     n = len(shuffled)
+    
+#     for i in range(n - 1, 0, -1):
+#         random_index = (i * 123456789) % (i + 1)
+#         shuffled[i], shuffled[random_index] = shuffled[random_index], shuffled[i]
+    
+#     return shuffled
+
+# # Example usage
+# original_list = [1, 2, 3, 4, 5]
+# shuffled_list = shuffle_list(original_list)
+# print("Original List:", original_list)
+# print("Shuffled List:", shuffled_list)

@@ -30,7 +30,7 @@ class Queue:
     def enqueue(self,song:Track):
         """Add song to Queue"""
         if self.size >= len(self.queue):
-            self.queue.append(song)  # Dynamically grow the queue
+            self.queue.append(song)
         else:
             self.queue[self.size] = song
         self.increaseSize()
@@ -102,7 +102,7 @@ class Queue:
         if self.curr == -1:
             self.curr = 0
         if self.curr < self.size and self.queue[self.curr] is not None:
-            return(f"Currently Playing {'(Paused)' if self.state == False else ''}: \n\t{self.queue[self.curr]}\nNext track: \n\t{'No more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
+            return(f"\nCurrently Playing {'(Paused)' if self.state == False else ''}: \n\t{self.queue[self.curr]}\nNext track: \n\t{'No more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
 
     def prevTrack(self):
         self.state = True
@@ -143,64 +143,3 @@ class Queue:
         self.state = True 
         self.repeat = False
         self.shuffle = False
-
-
-def loadTracksToQueue(queue):
-    with open('Library.csv', mode='r') as storage:
-        reader = csv.reader(storage)
-        for line in reader:
-            if len(line) >= 4:  # Ensure all required data is present
-                title, artist, album, duration = line
-                track = Track(title, artist, album, duration)
-                queue.enqueue(track)
-    print(f"Tracks loaded into the queue from Library.csv.\n")
-    
-
-# p=PlayList()
-# # print(p.loadplaylist('my playlist'))
-
-# # p.addtoPlaylist(p.loadplaylist('my playlist'))
-# queue = Queue()
-# queue.listEnqueue(p.convert()) 
-
-# print(queue)
-# queue.playTrack()
-# queue.setstate(1)
-# print(queue.player())
-
-#wala ni apil tanan diri
-# song1 = Track("Nikes", "Frank Ocean", "Blonde", "5:14")
-# song2 = Track("Heartless", "The Weeknd", "After Hours", "3:18")
-# song3 = Track("Thinkin Bout You", "Frank Ocean", "Channel Orange", "3:21")
-# queue.enqueue(song1)
-# queue.enqueue(song2)
-# queue.enqueue(song3)
-# # queue.repeat = True
-# # queue.shuffle = True
-# queue.pauseTrack()
-# queue.display()
-
-# print(queue.getTotalDuration())
-
-# queue.toggleRepeat()
-
-# queue.playTrack() #Play 1st song
-
-# queue.skipTrack() #Skip to 2nd song
-# # queue.playTrack() #PLay 2nd song
-
-# queue.skipTrack() #Skip to 3rd song
-# queue.prevTrack()
-# queue.prevTrack()
-# queue.skipTrack()
-# queue.skipTrack()
-# queue.playTrack() #Play 3rd song
-
-# queue.prevTrack() #Go back to 2nd song
-# queue.playTrack() #Play 2nd song
-
-# queue.prevTrack() #Go back to 1st song
-# queue.playTrack() #Play 1st song
-
-# queue.prevTrack() #Go back to the last song in the queue
-# queue.playTrack() #Play last song
