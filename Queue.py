@@ -144,29 +144,3 @@ class Queue:
         self.repeat = False
         self.shuffle = False
 
-    def saveQueue(self, filename="saved_queue.csv"):
-        """Save the current queue to a CSV file."""
-        with open(filename, mode='w', newline='', encoding='utf-8') as file:
-            writer = csv.writer(file)
-            for track in self.queue[:self.size]:  # Only save valid tracks
-                if track:
-                    writer.writerow([track.title, track.artist, track.album, track.duration])
-        print("Queue saved successfully.")
-
-    def loadQueue(self, filename="saved_queue.csv"):
-        """Load the queue from a CSV file."""
-        try:
-            with open(filename, mode='r', newline='', encoding='utf-8') as file:
-                reader = csv.reader(file)
-                self.clearQueue()  # Clear the existing queue before loading
-                for line in reader:
-                    if len(line) >= 4:
-                        title, artist, album, duration = line
-                        track = Track(title, artist, album, duration)
-                        self.enqueue(track)
-            print("Queue loaded successfully.")
-        except FileNotFoundError:
-            print("No saved queue found. Starting fresh.")
-        except Exception as e:
-            print(f"Error loading queue: {e}")
-

@@ -96,7 +96,6 @@ if __name__ == "__main__":
     manager=LibraryManager
     plays=PlayList()
     queue = Queue()
-    queue.loadQueue()
     while True:
         manager.loadLibrary()
         printmenu("main")
@@ -234,7 +233,6 @@ if __name__ == "__main__":
                     break
 
         elif choice1 == "0":
-            queue.saveQueue()
             break
         else: 
             continue
