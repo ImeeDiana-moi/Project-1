@@ -70,7 +70,6 @@ class PlayList:
         random.shuffle(self.storage0)    
 
     def shuffle_list(self):
-    # Make a copy to avoid modifying the original list
         shuffled = self.storage0[:]
         n = len(shuffled)
         
@@ -103,4 +102,3 @@ class PlayList:
         Should be in pagination format"""
         res= LibraryManager.paginate_items(self.storage0)
         return res
-        
