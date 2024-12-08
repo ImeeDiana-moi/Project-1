@@ -509,3 +509,20 @@ p1=PlayList()
 # shuffled_list = shuffle_list(original_list)
 # print("Original List:", original_list)
 # print("Shuffled List:", shuffled_list)
+
+# import os
+
+# # Specify the path to your CSV file
+# file_path = 'saved_queue.csv'
+
+# try:
+#     # Check if the file exists
+#     if os.path.exists(file_path):
+#         # Open the file in write mode to clear its contents
+#         with open(file_path, 'w') as file:
+#             pass  # This clears the file
+#         print(f"The contents of '{file_path}' have been deleted.")
+#     else:
+#         print(f"The file '{file_path}' does not exist.")
+# except Exception as e:
+#     print(f"An error occurred: {e}")

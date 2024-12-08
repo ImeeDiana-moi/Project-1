@@ -1,7 +1,10 @@
 import csv
 import random
 from Track import Track
-# from PlayList import PlayList
+def clearRam():
+    file_path = 'ram.csv'
+    with open(file_path, 'w') as file:
+        pass
 
 class Queue:
     def __init__(self,size:int=50):
@@ -12,6 +15,37 @@ class Queue:
         self.repeat = False
         self.shuffle= False
         self.state=True
+
+    def saveQueue(self, filename="ram.csv"):
+        """Save the current queue to a CSV file."""
+        with open(filename, mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            for track in self.queue[:self.size]: 
+                if track:
+                    writer.writerow([track.title, track.artist, track.album, track.duration,track.playlist])
+
+
+    def loadQueue(self, filename="ram.csv"):
+        """Load the queue from saved_queue csv file."""
+        try:
+            with open(filename, mode='r', newline='', encoding='utf-8') as file:
+                reader = csv.reader(file)
+                self.clearQueue()
+                count=0
+                for line in reader:
+                    if len(line) >= 4:
+                        title, artist, album, duration,playlist = line
+                        track = Track(title, artist, album, duration,playlist)
+                        self.enqueue(track)
+                        count+=1
+                if count > 1:
+                    print("Loaded Previous queue")
+                   
+        except FileNotFoundError:
+            print("No saved queue found.")
+        except Exception as e:
+            print(f"Error loading queue: {e}")
+        
 
     def increaseSize(self):
         """Increase Queue Size"""
@@ -34,6 +68,7 @@ class Queue:
         else:
             self.queue[self.size] = song
         self.increaseSize()
+        self.saveQueue()
     
     def listEnqueue(self, receive): 
         """Add a list of Track objects to the queue."""
@@ -99,10 +134,11 @@ class Queue:
         self.state = False
     
     def playTrack(self):
+        # self.saveQueue()
         if self.curr == -1:
             self.curr = 0
         if self.curr < self.size and self.queue[self.curr] is not None:
-            return(f"\nCurrently Playing {'(Paused)' if self.state == False else ''}{'(Repeat ON)' if self.repeat == True else '(Repeat OFF)'}: \n\t{self.queue[self.curr]}\nNext track: \n\t{'No more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
+            return(f"\nCurrently Playing {'(Paused)' if self.state == False else ''}: \n\t{self.queue[self.curr]}\nNext track: \n\t{'No more tracks left' if self.queue[self.curr+1]==None else self.queue[self.curr+1]}")
 
     def prevTrack(self):
         self.state = True
@@ -143,4 +179,4 @@ class Queue:
         self.state = True 
         self.repeat = False
         self.shuffle = False
-
+        

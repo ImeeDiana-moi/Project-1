@@ -6,6 +6,7 @@ menus = {
     "main": {
         1:"Playlists",
         2:"Music Library",
+        3:"View Queue",
         0:"Quit"
     },
 
@@ -41,7 +42,10 @@ def printmenu(menu: str) -> None:
     assert type(menu) == str, "Invalid menu given!"
     for key, value in menus[menu].items():
         print(f"[{key}] {value}")
-
+def clearRam():
+    file_path = 'ram.csv'
+    with open(file_path, 'w') as file:
+        pass
 
 def QueueCommands():
     """Display and execute Queue Commands"""
@@ -78,6 +82,7 @@ def QueueCommands():
                 print(queue.playTrack())
             elif choicelib1 == "6":  # Clear Queue
                 queue.clearQueue()
+                clearRam()
                 print("Queue cleared.")
                 break
             elif choicelib1 == "0":  # Return
@@ -87,15 +92,11 @@ def QueueCommands():
         except Exception as e:
             print(f"The Queue is Empty!")
 
-
-
-
-
-
 if __name__ == "__main__":
     manager=LibraryManager
     plays=PlayList()
     queue = Queue()
+    queue.loadQueue()
     while True:
         manager.loadLibrary()
         printmenu("main")
@@ -164,9 +165,6 @@ if __name__ == "__main__":
                             plays.showPlaylistAlpha()
                             print(plays)
 
-                        elif choicepl == "5":
-                            QueueCommands()
-
                         elif choicepl == "d":
                             name=plays.getPlaylistName()
                             
@@ -212,7 +210,6 @@ if __name__ == "__main__":
                             selected_index = int(choicelib2) - 1 
                             queue.listEnqueue(manager.Library[selected_index:])
                             print(queue.playTrack())
-                            QueueCommands()
                             break
                 elif choicelib=='3':
                     while True:
@@ -227,11 +224,14 @@ if __name__ == "__main__":
                             break
                 elif choicelib == '4':#Show Library alphabetically
                     manager.AlphaLibrary(manager.Library)
-                elif choicelib == '5':
-                    QueueCommands()
                 elif choicelib == "0":
                     break
-
+        elif choice1 == '3':
+            clearRam()
+            print(queue.playTrack())
+            QueueCommands()
+            
+            
         elif choice1 == "0":
             break
         else: 

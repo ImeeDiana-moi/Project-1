@@ -120,12 +120,11 @@ def showplaylists():
 
 def deletePlaylist(name):
 
-    file_path = "Library.csv"
-    with open(file_path, "r") as file:
+    with open("Library.csv", "r") as file:
         reader = csv.reader(file)
         rows = list(reader)
         filtered_rows = [row for row in rows if row[4] != name]
-        with open(file_path, "w", newline="") as file:
+        with open("Library.csv", "w", newline="") as file:
             writer = csv.writer(file)
             writer.writerows(filtered_rows)
 
@@ -167,5 +166,4 @@ def paginate_items(items, max_per_page=10):
             print("Exiting pagination.")
             break
         else:
-            return str(choice)
-        
+            return str(choice)     
