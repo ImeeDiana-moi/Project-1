@@ -1,14 +1,12 @@
-
-import csv
 from Queue import Queue
 from PlayList import PlayList
-from Track import Track
 import LibraryManager
 
 menus = {
     "main": {
         1:"Playlists",
         2:"Music Library",
+        3:"View Queue",
         0:"Quit"
     },
 
@@ -17,7 +15,6 @@ menus = {
         2:"Choose Track to Play",
         3:"Add Tracks to Playlist",
         4:"View Alphabetically",
-        5:"Manage Queue",
         0:"Return"
     },
 
@@ -45,21 +42,68 @@ def printmenu(menu: str) -> None:
     assert type(menu) == str, "Invalid menu given!"
     for key, value in menus[menu].items():
         print(f"[{key}] {value}")
+def clearRam():
+    file_path = 'ram.csv'
+    with open(file_path, 'w') as file:
+        pass
 
-line1 = "<---Welcome to Python Music Player--->"
+def QueueCommands():
+    """Display and execute Queue Commands"""
+    while True:
+        if queue.getSize() == 0:
+            print("The queue is empty. Add tracks before managing.")
+            break
+        printmenu("commands")
+        choicelib1 = input("Enter Choice: ")
+        try:
+            if choicelib1 == "1":  # Next track
+                if queue.getSize() == 0:
+                    print("The queue is empty. Add tracks before managing.")
+                else:
+                    queue.skipTrack()
+                    print(queue.playTrack())
+            elif choicelib1 == "2":  # Previous track
+                if queue.getSize() == 0:
+                    print("The queue is empty. Add tracks before managing.")
+                else:
+                    queue.prevTrack()
+                    print(queue.playTrack())
+            elif choicelib1 == "3":  # Turn ON Repeat
+                queue.toggleRepeat()
+                print(queue.playTrack())
+            elif choicelib1 == "4":  # Turn OFF Repeat
+                queue.repeat = False
+                print(queue.playTrack())
+            elif choicelib1 == "5":  # Shuffle Queue
+                if queue.getSize() == 0:
+                    print("The queue is empty. Add tracks before shuffling.")
+                else:
+                    queue.shuffleQueue()
+                print(queue.playTrack())
+            elif choicelib1 == "6":  # Clear Queue
+                queue.clearQueue()
+                clearRam()
+                print("Queue cleared.")
+                break
+            elif choicelib1 == "0":  # Return
+                break
+        except NameError:
+            print("Queue is not initialized!")
+        except Exception as e:
+            print(f"The Queue is Empty!")
 
 if __name__ == "__main__":
     manager=LibraryManager
     plays=PlayList()
     queue = Queue()
-    
+    queue.loadQueue()
+    manager.loadLibrary()
     while True:
-        manager.loadLibrary()
+        
         printmenu("main")
         choice1 = input("Enter Choice: ")
         if choice1 == "1":
             while True:
-                #manager.loadLibrary()
                 val=manager.showplaylists()
                 if val is None:
                     dec = input("Would you like to create a playlist (y/n)? ")
@@ -82,21 +126,13 @@ if __name__ == "__main__":
                 elif 1 <= int(ch) <= len(val):
                     selected_playlist = val[int(ch) - 1]
                     plays.getPlaylist(selected_playlist)
-                    print(plays)
-
                     while True:
-                        
-                        print(plays)
-                        printmenu("playlists")
-                        print("[d] Delete Playlist")
-                        choicepl = input("Enter Choice: ")
-
+                        choicepl=plays.str()
                         if choicepl == "1":
-                            
-                            plays.showTracksInPlaylist(selected_playlist)
                             tracks_to_play = plays.storage0
                             queue.listEnqueue(tracks_to_play)
                             print(queue.playTrack())
+                            QueueCommands()
 
                         elif choicepl == "2":
                                     choice_track = input("Enter the track number to play or [0] to return: ")
@@ -105,6 +141,7 @@ if __name__ == "__main__":
                                         tracks_to_play = plays.storage0[selected_index:]
                                         queue.listEnqueue(tracks_to_play)
                                         print(queue.playTrack()) 
+                                        QueueCommands()
                                         break
                                     elif choice_track == "0":
                                         break
@@ -128,49 +165,12 @@ if __name__ == "__main__":
                         elif choicepl=="4":
                             plays.showPlaylistAlpha()
                             print(plays)
-                        elif choicepl == "5": #Manage Queue
-                            while True:
-                                if queue.getSize() == 0:
-                                    print("The queue is empty. Add tracks before managing.")
-                                    break
-                                printmenu("commands")
-                                choicelib1 = input("Enter Choice: ")
-                                try:
-                                    if choicelib1 == "1":  # Next track
-                                        if queue.getSize() == 0:
-                                            print("The queue is empty. Add tracks before managing.")
-                                        else:
-                                            queue.skipTrack()
-                                            print(queue.playTrack())
-                                    elif choicelib1 == "2":  # Previous track
-                                        if queue.getSize() == 0:
-                                            print("The queue is empty. Add tracks before managing.")
-                                        else:
-                                            queue.prevTrack()
-                                            print(queue.playTrack())
-                                    elif choicelib1 == "3":  # Turn ON Repeat
-                                        queue.toggleRepeat()
-                                    elif choicelib1 == "4":  # Turn OFF Repeat
-                                        queue.repeat = False
-                                    elif choicelib1 == "5":  # Shuffle Queue
-                                        if queue.getSize() == 0:
-                                            print("The queue is empty. Add tracks before shuffling.")
-                                        else:
-                                            queue.shuffleQueue()
-                                    elif choicelib1 == "6":  # Clear Queue
-                                        queue.clearQueue()
-                                        print("Queue cleared.")
-                                    elif choicelib1 == "0":  # Return
-                                        break
-                                except NameError:
-                                    print("Queue is not initialized!")
-                                except Exception as e:
-                                    print(f"The Queue is Empty!")
 
                         elif choicepl == "d":
                             name=plays.getPlaylistName()
                             
                             manager.deletePlaylist(name)
+                            print("Playlist Deleted")
                             break
                         elif choicepl == "0":
                             break
@@ -194,6 +194,8 @@ if __name__ == "__main__":
                             queue.curr = 0 
                             queue.state = True
                             print(queue.playTrack())
+                            QueueCommands()
+
                     except Exception as e:
                         print(f"Error: {e}. The queue might be empty. Try adding tracks again.")
                 elif choicelib == "2":
@@ -223,48 +225,14 @@ if __name__ == "__main__":
                             break
                 elif choicelib == '4':#Show Library alphabetically
                     manager.AlphaLibrary(manager.Library)
-                elif choicelib == '5': #Manage Queue
-                    while True:
-                        if queue.getSize() == 0:
-                            print("The queue is empty. Add tracks before managing.")
-                            break
-                        printmenu("commands")
-                        choicelib1 = input("Enter Choice: ")
-                        try:
-                            if choicelib1 == "1":  # Next track
-                                if queue.getSize() == 0:
-                                    print("The queue is empty. Add tracks before managing.")
-                                else:
-                                    queue.skipTrack()
-                                    print(queue.playTrack())
-                            elif choicelib1 == "2":  # Previous track
-                                if queue.getSize() == 0:
-                                    print("The queue is empty. Add tracks before managing.")
-                                else:
-                                    queue.prevTrack()
-                                    print(queue.playTrack())
-                            elif choicelib1 == "3":  # Turn ON Repeat
-                                queue.toggleRepeat()
-                            elif choicelib1 == "4":  # Turn OFF Repeat
-                                queue.repeat = False
-                            elif choicelib1 == "5":  # Shuffle Queue
-                                if queue.getSize() == 0:
-                                    print("The queue is empty. Add tracks before shuffling.")
-                                else:
-                                    queue.shuffleQueue()
-                            elif choicelib1 == "6":  # Clear Queue
-                                queue.clearQueue()
-                                print("Queue cleared.")
-                            elif choicelib1 == "0":  # Return
-                                break
-                        except NameError:
-                            print("Queue is not initialized!")
-                        except Exception as e:
-                            print(f"The Queue is Empty!")
-
                 elif choicelib == "0":
                     break
-
+        elif choice1 == '3':
+            clearRam()
+            print(queue.playTrack())
+            QueueCommands()
+            
+            
         elif choice1 == "0":
             break
         else: 

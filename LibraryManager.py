@@ -27,7 +27,7 @@ def AlphaLibrary(Library):
     for track in Library:
         print(f"[{count}] {track}")
         count += 1
-    print("<-------------------------------------->"+"\n")
+    print('')
 
 
 def showLibrary():
@@ -37,21 +37,9 @@ def showLibrary():
         s += f"[{count}]{str(track)}\n"
         count += 1
     print(s)
-    
-def addtoLibrary():
-    """Add track to library"""
-    title=input("Enter Title: ")
-    artist=input("Enter Artist: ")
-    album=input("Enter Album: ")
-    duration=input("Enter Duration(seconds): ")
-    data=[ [title,artist,album,duration]]
-    manage=open('Library.csv', 'a', newline='')
-    write= csv.writer(manage)
-    write.writerows(data) 
-    manage.close()
-    print("Succesfully added track.")
 
 def show():
+    """Used to show available tracks for add tracks to a playlist the user is creating"""
     e=open('Library.csv', 'a',newline='')
     w=csv.writer(e)
     count=1
@@ -59,6 +47,40 @@ def show():
         print(f"[{count}] {tracks.title}")
         count+=1
     return w
+
+def addtoLibrary():
+    """Add track to library"""
+    title=input("Enter Title: ")
+    artist=input("Enter Artist: ")
+    album=input("Enter Album: ")
+    
+    playlist='None'
+    while True:
+        try:
+            duration=int(input("Enter Duration(seconds): "))
+        except:
+            print("Invalid input!")
+            continue
+        try:
+            s=input('Do you want to add this track to a playlist(y or n): ')
+        except:
+            print("Invalid input")
+        if s == 'y':
+            pass
+        elif s == 'n':
+            break
+        else:
+            print('invalid choice')
+            continue
+        
+    data=[ [title,artist,album,duration,playlist]]
+    manage=open('Library.csv', 'a', newline='')
+    write= csv.writer(manage)
+    write.writerows(data) 
+    manage.close()
+    print("Succesfully added track.")
+
+
         
 def createplaylist(name):
     """Receives a name to create a playlist and choose tracks from library only"""
@@ -98,12 +120,11 @@ def showplaylists():
 
 def deletePlaylist(name):
 
-    file_path = "Library.csv"
-    with open(file_path, "r") as file:
+    with open("Library.csv", "r") as file:
         reader = csv.reader(file)
         rows = list(reader)
         filtered_rows = [row for row in rows if row[4] != name]
-        with open(file_path, "w", newline="") as file:
+        with open("Library.csv", "w", newline="") as file:
             writer = csv.writer(file)
             writer.writerows(filtered_rows)
 
@@ -119,6 +140,8 @@ def paginate_items(items, max_per_page=10):
     Returns:
         None
     """
+    if len(items)==0:
+        print("Empty!") 
     total_pages = (len(items) + max_per_page - 1) // max_per_page  
     current_page = 1
 
@@ -133,7 +156,7 @@ def paginate_items(items, max_per_page=10):
             print(f"{index} {item}")
             index += 1
         print(f"Page {current_page} of {total_pages}")
-        print("\nNavigate: [n]ext page, [p]revious page, [q]uit")
+        print("\nNavigate: [n]ext page, [p]revious page, [q]uit\n[1] Play all\n[2] Chosse track to play\n[3] Add tracks to playlist\n[4] View Alphabetically\n[5] Manage Queue\n[0] Return")
         choice = input("Enter your choice: ").strip().lower()
         if choice == "n" and current_page < total_pages:
             current_page += 1
@@ -143,42 +166,4 @@ def paginate_items(items, max_per_page=10):
             print("Exiting pagination.")
             break
         else:
-            print("Invalid choice or no more pages in that direction.\n")
-
-
-
-
-# loadLibrary()    
-
-
-# for i in Library:
-#     print(i)
-    # with open("Library.csv", mode='r', newline='') as reader:
-    #     read=csv.reader(reader)
-    #     # t = Track()
-    #     for items in read:
-    #         # t = Track
-    #         # s+=f"\nTitle: {items[0]}\nArtist: {items[1]}\nAlbum: {items[2]}\nDuration: {items[3]}\n"
-    # s+="<----End of Library----->"
-    # print(s)
-
-# def addtracktoplaylist(name):
-#     data=[
-#         [name],
-#         [
-#             input("Enter Track Title: "),
-#             input("Enter Track Artist: "),
-#             input("Enter Track Album: "),
-#             input("Enter Track Duration(00:00): "),
-#         ]
-#     ]
-#     w=open('Playlists.csv',mode='a',newline='')
-#     writer=csv.writer(w)
-#     writer.writerows(data)
-
-
-# showLibrary()
-# AlphaLibrary(Library)
-# showLibrary()
-
-# addtoLibrary()
+            return str(choice)     
